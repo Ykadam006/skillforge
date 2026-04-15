@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { PracticeSessionTimer, PracticeVolumeAndDifficulty } from "@/components/practice/practice-insights";
 import { streakDays } from "@/lib/streak";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
 import type { PracticeType } from "@/types/progress";
@@ -62,8 +63,12 @@ export function PracticeHome() {
         </Card>
       </div>
 
+      <PracticeVolumeAndDifficulty />
+
+      <PracticeSessionTimer />
+
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card id="log-practice">
           <CardHeader>
             <CardTitle>Log practice</CardTitle>
             <CardDescription>NeetCode / LeetCode / SQL — keep it lightweight.</CardDescription>

@@ -6,5 +6,8 @@ test.describe("Skill detail", () => {
     await expect(page.getByRole("heading", { name: "Learning path", level: 1 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Docker", level: 1 })).toBeVisible();
     await expect(page.getByRole("link", { name: /Back to library/i })).toBeVisible();
+    await expect(page.getByTestId("stage-progress-strip")).toBeVisible();
+    await expect(page.getByText("Checklist over time")).toBeVisible();
+    await expect(page.getByText("Minutes on this skill (logged)")).toBeVisible();
   });
 });

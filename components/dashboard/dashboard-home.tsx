@@ -1,24 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Line,
-  LineChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { useEffect, useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { ActivityHeatmap } from "@/components/dashboard/activity-heatmap";
+import { OnboardingStrip } from "@/components/dashboard/onboarding-strip";
 import { StatCard } from "@/components/dashboard/stat-card";
 import {
   activityMinutesByDayLastNDays,
@@ -31,13 +22,39 @@ import { pickTodayFocus } from "@/lib/today-focus";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
 import { SkillCard } from "@/components/skills/skill-card";
 
-const DONUT = ["var(--chart-1)", "var(--chart-5)"];
-const BAR = "var(--chart-5)";
+const DashboardInsightCharts = dynamic(
+  () => import("@/components/dashboard/dashboard-charts").then((m) => m.DashboardInsightCharts),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="grid gap-8 lg:grid-cols-3"
+        aria-busy="true"
+        aria-label="Loading dashboard charts"
+      >
+        <div className="space-y-8 lg:col-span-2">
+          <div className="h-[320px] animate-pulse rounded-2xl bg-muted/40" />
+          <div className="h-[300px] animate-pulse rounded-2xl bg-muted/40" />
+        </div>
+        <div className="space-y-8">
+          <div className="h-[220px] animate-pulse rounded-2xl bg-muted/40" />
+          <div className="h-[260px] animate-pulse rounded-2xl bg-muted/40" />
+        </div>
+      </div>
+    ),
+  },
+);
 
 export function DashboardHome() {
   const skillProgress = useSkillforgeStore((s) => s.skillProgress);
   const weeklyGoal = useSkillforgeStore((s) => s.weeklyGoal);
   const setWeeklyGoal = useSkillforgeStore((s) => s.setWeeklyGoal);
+  const weeklyTargetMinutes = useSkillforgeStore((s) => s.weeklyTargetMinutes);
+  const setWeeklyTargetMinutes = useSkillforgeStore((s) => s.setWeeklyTargetMinutes);
+  const [weeklyTargetDraft, setWeeklyTargetDraft] = useState(String(weeklyTargetMinutes));
+  useEffect(() => {
+    setWeeklyTargetDraft(String(weeklyTargetMinutes));
+  }, [weeklyTargetMinutes]);
   const studySessions = useSkillforgeStore((s) => s.studySessions);
   const practiceEntries = useSkillforgeStore((s) => s.practiceEntries);
   const certifications = useSkillforgeStore((s) => s.certifications);
@@ -65,8 +82,13 @@ export function DashboardHome() {
       ? [...byCat].sort((a, b) => a.pct - b.pct)[0]
       : null;
 
+  const chartEmpty = byDay.every((d) => d.minutes === 0);
+  const weekVsTargetPct = Math.min(100, Math.round((weekMinutes / Math.max(weeklyTargetMinutes, 1)) * 100));
+
   return (
     <div className="space-y-10">
+      <OnboardingStrip />
+
       {/* Hero */}
       <section className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-stretch">
         <div className="flex flex-col justify-center rounded-[20px] border border-border/80 bg-card p-8 shadow-sm">
@@ -84,6 +106,25 @@ export function DashboardHome() {
               className="bg-card"
             />
             <p className="sf-helper text-muted-foreground">Edit anytime. This is your north star for the week.</p>
+            <div className="mt-4 flex flex-wrap items-end gap-3">
+              <div className="space-y-1">
+                <label htmlFor="weekly-target" className="sf-helper text-muted-foreground">
+                  Weekly minute target (for the bar below)
+                </label>
+                <Input
+                  id="weekly-target"
+                  type="text"
+                  inputMode="numeric"
+                  className="h-10 w-28 bg-card"
+                  value={weeklyTargetDraft}
+                  onChange={(e) => setWeeklyTargetDraft(e.target.value)}
+                  onBlur={() => {
+                    const n = Number(weeklyTargetDraft);
+                    setWeeklyTargetMinutes(Number.isFinite(n) ? n : weeklyTargetMinutes);
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -126,6 +167,36 @@ export function DashboardHome() {
         </Card>
       </section>
 
+      <section className="grid gap-6 lg:grid-cols-2">
+        <Card className="border-border/80 shadow-sm">
+          <CardHeader>
+            <CardTitle className="sf-card-title">Activity heatmap</CardTitle>
+            <CardDescription>Any logged minutes (study + practice) tint the grid.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ActivityHeatmap studySessions={studySessions} practiceEntries={practiceEntries} />
+          </CardContent>
+        </Card>
+        <Card className="border-border/80 shadow-sm">
+          <CardHeader>
+            <CardTitle className="sf-card-title">Goal vs actual</CardTitle>
+            <CardDescription>Minutes logged this week vs your numeric target.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4" data-testid="goal-vs-actual">
+            <div>
+              <div className="mb-2 flex items-baseline justify-between gap-2">
+                <span className="text-2xl font-bold tabular-nums">{weekMinutes}</span>
+                <span className="sf-helper text-muted-foreground">/ {weeklyTargetMinutes} min target</span>
+              </div>
+              <Progress value={weekVsTargetPct} className="h-2" />
+              <p className="sf-helper mt-2 text-muted-foreground">
+                Text goal: <span className="font-medium text-foreground">{weeklyGoal || "—"}</span>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
       {/* Stats row */}
       <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Skills completed" value={String(stats.done)} hint={`${stats.pct}% of your library`} />
@@ -134,97 +205,14 @@ export function DashboardHome() {
         <StatCard title="Certifications" value={String(certActive)} hint="Under 100% readiness" />
       </section>
 
-      {/* Main grid: charts + focus */}
-      <section className="grid gap-8 lg:grid-cols-3">
-        <div className="space-y-8 lg:col-span-2">
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="sf-card-title">Study rhythm</CardTitle>
-              <CardDescription>
-                Minutes per day (last 14 days): study sessions plus practice rows where you entered minutes.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="sf-chart-card px-2 pb-2">
-              <ResponsiveContainer
-                width="100%"
-                height={260}
-                minWidth={0}
-                initialDimension={{ width: 640, height: 260 }}
-              >
-                <LineChart data={byDay} margin={{ left: 4, right: 12, top: 12, bottom: 4 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                  <XAxis
-                    dataKey="date"
-                    tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
-                    tickMargin={8}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    width={36}
-                    tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      borderRadius: 12,
-                      fontSize: 12,
-                      border: "1px solid var(--border)",
-                      background: "var(--card)",
-                    }}
-                    labelFormatter={(v) => String(v)}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="minutes"
-                    stroke="var(--chart-1)"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-            <CardContent className="border-t border-border/50 pt-4">
-              <p className="sf-helper text-muted-foreground">
-                Tip: log short sessions after deep work — the trend line keeps you honest.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="sf-card-title">Progress by category</CardTitle>
-              <CardDescription>Share of skills marked complete in each section.</CardDescription>
-            </CardHeader>
-            <CardContent className="sf-chart-card px-2 pb-2">
-              <ResponsiveContainer
-                width="100%"
-                height={280}
-                minWidth={0}
-                initialDimension={{ width: 640, height: 280 }}
-              >
-                <BarChart data={byCat} layout="vertical" margin={{ left: 4, right: 16, top: 8, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
-                  <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fontSize: 11 }} axisLine={false} />
-                  <YAxis type="category" dataKey="name" width={118} tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
-                  <Tooltip formatter={(v) => [`${Number(v ?? 0)}%`, "Done"]} />
-                  <Bar dataKey="pct" radius={[0, 8, 8, 0]} fill={BAR} />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-            {weakest ? (
-              <CardContent className="border-t border-border/50 pt-4">
-                <p className="sf-body text-muted-foreground">
-                  <span className="font-semibold text-foreground">{weakest.name}</span> has the lowest completion
-                  right now ({weakest.pct}%). That is a good place to schedule your next block.
-                </p>
-              </CardContent>
-            ) : null}
-          </Card>
-        </div>
-
-        <div className="space-y-8">
+      <DashboardInsightCharts
+        chartEmpty={chartEmpty}
+        byDay={byDay}
+        byCat={byCat}
+        weakest={weakest}
+        donut={donut}
+        stats={stats}
+        rightSlot={
           <Card className="border-border/80 shadow-sm">
             <CardHeader>
               <CardTitle className="sf-card-title">Today&apos;s focus</CardTitle>
@@ -252,42 +240,8 @@ export function DashboardHome() {
               )}
             </CardContent>
           </Card>
-
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="sf-card-title">Overall completion</CardTitle>
-              <CardDescription>Honest marks only — done means done.</CardDescription>
-            </CardHeader>
-            <CardContent className="sf-chart-card flex flex-col items-center justify-center px-2 pb-4">
-              <ResponsiveContainer
-                width="100%"
-                height={240}
-                minWidth={0}
-                initialDimension={{ width: 360, height: 240 }}
-              >
-                <PieChart>
-                  <Pie
-                    data={donut}
-                    dataKey="value"
-                    nameKey="name"
-                    innerRadius={58}
-                    outerRadius={92}
-                    paddingAngle={2}
-                  >
-                    {donut.map((entry, index) => (
-                      <Cell key={entry.name} fill={DONUT[index % DONUT.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(v) => [`${Number(v ?? 0)} skills`, ""]} />
-                </PieChart>
-              </ResponsiveContainer>
-              <p className="sf-helper -mt-2 text-muted-foreground">
-                {stats.done} done · {stats.total} total
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+        }
+      />
 
       {/* Recent skills */}
       <section className="space-y-5">

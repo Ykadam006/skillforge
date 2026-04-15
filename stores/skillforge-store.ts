@@ -2,9 +2,17 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { CertificationTrack, PracticeEntry, Project, SkillProgress, StudySession } from "@/types/progress";
+import type {
+  CertificationTrack,
+  PracticeEntry,
+  Project,
+  SkillProgress,
+  StudySession,
+} from "@/types/progress";
 import type { LearningStatus } from "@/types/guide";
 import { defaultTasksForSkill } from "@/lib/guide";
+import { RADAR_TARGET_BY_AXIS } from "@/lib/radar-targets";
+import { appendChecklistHistory, appendSessionMinutesHistory } from "@/lib/skill-history";
 import { skillKey } from "@/lib/slug";
 
 type SkillProgressMap = Record<string, SkillProgress>;
@@ -12,6 +20,12 @@ type SkillProgressMap = Record<string, SkillProgress>;
 type SkillforgeState = {
   weeklyGoal: string;
   setWeeklyGoal: (value: string) => void;
+  weeklyTargetMinutes: number;
+  setWeeklyTargetMinutes: (n: number) => void;
+
+  /** Radar overlay targets (0–100) keyed by axis label (e.g. Languages). */
+  radarTargetsByAxis: Record<string, number>;
+  setRadarTarget: (axis: string, value: number) => void;
 
   skillProgress: SkillProgressMap;
   ensureSkill: (key: string, skillName: string) => void;
@@ -24,7 +38,7 @@ type SkillforgeState = {
   touchSkillOpened: (key: string, skillName: string) => void;
 
   studySessions: StudySession[];
-  logStudySession: (minutes: number, category: string) => void;
+  logStudySession: (minutes: number, category: string, skillKey?: string) => void;
 
   practiceEntries: PracticeEntry[];
   addPracticeEntry: (entry: Omit<PracticeEntry, "id">) => void;
@@ -43,6 +57,8 @@ const defaultProgress = (skillName: string): SkillProgress => ({
   bookmarked: false,
   notes: "",
   tasks: defaultTasksForSkill(skillName),
+  checklistHistory: [],
+  sessionHistory: [],
 });
 
 const seedProjects: Project[] = [
@@ -130,8 +146,20 @@ export const useSkillforgeStore = create<SkillforgeState>()(
   persist(
     (set, get) => ({
       weeklyGoal: "Finish Docker basics + 10 NeetCode problems",
+      weeklyTargetMinutes: 300,
+
+      radarTargetsByAxis: { ...RADAR_TARGET_BY_AXIS },
 
       setWeeklyGoal: (value) => set({ weeklyGoal: value }),
+      setWeeklyTargetMinutes: (n) =>
+        set({ weeklyTargetMinutes: Math.min(2000, Math.max(30, Math.round(Number(n)) || 300)) }),
+      setRadarTarget: (axis, value) =>
+        set((state) => ({
+          radarTargetsByAxis: {
+            ...state.radarTargetsByAxis,
+            [axis]: Math.min(100, Math.max(0, Math.round(Number(value)) || 0)),
+          },
+        })),
 
       skillProgress: {},
 
@@ -191,7 +219,10 @@ export const useSkillforgeStore = create<SkillforgeState>()(
         set((state) => {
           const current = state.skillProgress[key];
           const tasks = current.tasks.map((t) => (t.id === taskId ? { ...t, completed } : t));
-          return { skillProgress: { ...state.skillProgress, [key]: { ...current, tasks } } };
+          const checklistHistory = appendChecklistHistory(current, tasks);
+          return {
+            skillProgress: { ...state.skillProgress, [key]: { ...current, tasks, checklistHistory } },
+          };
         });
       },
 
@@ -200,10 +231,12 @@ export const useSkillforgeStore = create<SkillforgeState>()(
         set((state) => {
           const current = state.skillProgress[key];
           const id = `${key}:${title}`.replace(/\s+/g, "-").toLowerCase();
+          const tasks = [...current.tasks, { id, title, completed: false }];
+          const checklistHistory = appendChecklistHistory(current, tasks);
           return {
             skillProgress: {
               ...state.skillProgress,
-              [key]: { ...current, tasks: [...current.tasks, { id, title, completed: false }] },
+              [key]: { ...current, tasks, checklistHistory },
             },
           };
         });
@@ -222,23 +255,58 @@ export const useSkillforgeStore = create<SkillforgeState>()(
 
       studySessions: [],
 
-      logStudySession: (minutes, category) => {
+      logStudySession: (minutes, category, skillKey) => {
         const safe = Math.min(1440, Math.max(0, Math.round(Number(minutes)) || 0));
         if (safe < 1) return;
+        const day = new Date().toISOString().slice(0, 10);
         const session: StudySession = {
           id: crypto.randomUUID(),
-          date: new Date().toISOString().slice(0, 10),
+          date: day,
           minutes: safe,
           category: category.trim() || "Study",
+          ...(skillKey ? { skillKey } : {}),
         };
-        set((state) => ({ studySessions: [session, ...state.studySessions].slice(0, 365) }));
+        set((state) => {
+          let skillProgress = state.skillProgress;
+          if (skillKey && state.skillProgress[skillKey]) {
+            const current = state.skillProgress[skillKey];
+            skillProgress = {
+              ...state.skillProgress,
+              [skillKey]: {
+                ...current,
+                sessionHistory: appendSessionMinutesHistory(current, day, safe),
+              },
+            };
+          }
+          return {
+            studySessions: [session, ...state.studySessions].slice(0, 365),
+            skillProgress,
+          };
+        });
       },
 
       practiceEntries: [],
 
       addPracticeEntry: (entry) => {
         const row: PracticeEntry = { ...entry, id: crypto.randomUUID() };
-        set((state) => ({ practiceEntries: [row, ...state.practiceEntries].slice(0, 2000) }));
+        set((state) => {
+          let skillProgress = state.skillProgress;
+          const mins = row.minutes ?? 0;
+          if (row.skillKey && mins > 0 && state.skillProgress[row.skillKey]) {
+            const current = state.skillProgress[row.skillKey];
+            skillProgress = {
+              ...state.skillProgress,
+              [row.skillKey]: {
+                ...current,
+                sessionHistory: appendSessionMinutesHistory(current, row.date, mins),
+              },
+            };
+          }
+          return {
+            practiceEntries: [row, ...state.practiceEntries].slice(0, 2000),
+            skillProgress,
+          };
+        });
       },
 
       togglePracticeSolved: (id) => {
@@ -283,12 +351,25 @@ export const useSkillforgeStore = create<SkillforgeState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         weeklyGoal: state.weeklyGoal,
+        weeklyTargetMinutes: state.weeklyTargetMinutes,
+        radarTargetsByAxis: state.radarTargetsByAxis,
         skillProgress: state.skillProgress,
         studySessions: state.studySessions,
         practiceEntries: state.practiceEntries,
         projects: state.projects,
         certifications: state.certifications,
       }),
+      merge: (persisted, current) => {
+        const p = persisted as Partial<SkillforgeState>;
+        return {
+          ...current,
+          ...p,
+          radarTargetsByAxis: {
+            ...RADAR_TARGET_BY_AXIS,
+            ...(p.radarTargetsByAxis ?? {}),
+          },
+        };
+      },
     },
   ),
 );

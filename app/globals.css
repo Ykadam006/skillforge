@@ -288,4 +288,29 @@
     line-height: 1.6;
     @apply mt-2 text-pretty text-foreground/90;
   }
+
+  @keyframes sf-check-flash {
+    0% {
+      background-color: var(--success-light);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  .sf-task-row-done {
+    animation: sf-check-flash 0.35s ease-out;
+  }
+
+  @keyframes sf-streak-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.04);
+    }
+  }
+  .sf-streak-pulse {
+    animation: sf-streak-pulse 0.6s ease-in-out 2;
+  }
 }

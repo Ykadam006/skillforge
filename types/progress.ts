@@ -6,12 +6,26 @@ export type SkillTask = {
   completed: boolean;
 };
 
+export type ChecklistHistoryPoint = {
+  date: string;
+  pct: number;
+};
+
+export type SessionHistoryPoint = {
+  date: string;
+  minutes: number;
+};
+
 export type SkillProgress = {
   learningStatus: LearningStatus;
   confidence: number;
   bookmarked: boolean;
   notes: string;
   tasks: SkillTask[];
+  /** Last points for checklist % sparkline (capped in store). */
+  checklistHistory?: ChecklistHistoryPoint[];
+  /** Minutes per day for this skill when logs include skillKey (capped in store). */
+  sessionHistory?: SessionHistoryPoint[];
   /** ISO timestamp — updated when you open a skill path (drives focus + recent). */
   lastOpenedAt?: string;
 };
@@ -27,6 +41,8 @@ export type PracticeEntry = {
   difficulty?: "easy" | "medium" | "hard";
   minutes?: number;
   date: string;
+  /** When set, minutes roll into that skill's session sparkline. */
+  skillKey?: string;
 };
 
 export type ProjectStatus = "idea" | "building" | "done";
@@ -56,4 +72,6 @@ export type StudySession = {
   date: string;
   minutes: number;
   category: string;
+  /** When set, minutes roll into that skill's session sparkline. */
+  skillKey?: string;
 };

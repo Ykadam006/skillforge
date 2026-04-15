@@ -20,4 +20,10 @@ test.describe("Practice", () => {
     await expect(page.getByText("Log practice", { exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Add to list" })).toBeVisible();
   });
+
+  test("session timer block is present", async ({ page }) => {
+    await page.goto("/practice");
+    await expect(page.getByTestId("session-timer")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Start" })).toBeVisible();
+  });
 });

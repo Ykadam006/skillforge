@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Circle, ExternalLink } from "lucide-react";
+import { ArrowLeft, Award, Camera, Circle, ExternalLink, Package } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -15,9 +15,18 @@ import {
   LearningStatusBadge,
   PriorityBadge,
 } from "@/components/skills/skill-status-badge";
+import { ChecklistSparkline } from "@/components/skills/checklist-sparkline";
+import { resourceIconForType } from "@/components/skills/resource-type-icon";
+import { SessionSparkline } from "@/components/skills/session-sparkline";
+import { StageProgressStrip } from "@/components/skills/stage-progress-strip";
+import { findCertificationForGuideCert } from "@/lib/cert-match";
 import { findSkillBySlug } from "@/lib/guide";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
 import type { GuideResource, LearningStatus } from "@/types/guide";
+import type { Project } from "@/types/progress";
+
+/** Stable empty snapshot for useMemo — do not use inline `[]` in zustand selectors (breaks useSyncExternalStore). */
+const EMPTY_PROJECTS: Project[] = [];
 
 function RingProgress({ value }: { value: number }) {
   const r = 40;
@@ -50,6 +59,8 @@ function RingProgress({ value }: { value: number }) {
 
 export function SkillLearningPanel({ slug }: { slug: string }) {
   const [draftTask, setDraftTask] = useState("");
+  const [flashTaskId, setFlashTaskId] = useState<string | null>(null);
+  const [skillLogMinutes, setSkillLogMinutes] = useState(25);
   const row = useMemo(() => findSkillBySlug(slug), [slug]);
   const ensureSkill = useSkillforgeStore((s) => s.ensureSkill);
   const setLearningStatus = useSkillforgeStore((s) => s.setLearningStatus);
@@ -58,6 +69,9 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
   const setTaskCompleted = useSkillforgeStore((s) => s.setTaskCompleted);
   const addTask = useSkillforgeStore((s) => s.addTask);
   const touchSkillOpened = useSkillforgeStore((s) => s.touchSkillOpened);
+  const logStudySession = useSkillforgeStore((s) => s.logStudySession);
+  const certifications = useSkillforgeStore((s) => s.certifications);
+  const projects = useSkillforgeStore((s) => s.projects);
   const progress = useSkillforgeStore((s) => (row ? s.skillProgress[row.key] : undefined));
 
   useEffect(() => {
@@ -66,8 +80,13 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
     touchSkillOpened(row.key, row.skill.name);
   }, [ensureSkill, row, touchSkillOpened]);
 
-  const relatedProject = useSkillforgeStore((s) =>
-    row ? s.projects.find((proj) => proj.skillKeys.includes(row.key)) : undefined,
+  const relatedProjects = useMemo(
+    () => (row ? projects.filter((proj) => proj.skillKeys.includes(row.key)) : EMPTY_PROJECTS),
+    [projects, row],
+  );
+  const matchedCert = useMemo(
+    () => (row?.skill.cert ? findCertificationForGuideCert(certifications, row.skill.cert) : undefined),
+    [certifications, row],
   );
 
   const resourcesByType = useMemo(() => {
@@ -125,6 +144,10 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
             </CardHeader>
           </Card>
 
+          {row.skill.levels.length > 0 ? (
+            <StageProgressStrip levels={row.skill.levels} checklistPct={checklistPct} learning={learning} />
+          ) : null}
+
           <div>
             <h2 className="sf-section-label mb-4">Learning stages</h2>
             <div className="space-y-6">
@@ -163,34 +186,46 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                       {type}
                     </h3>
                     <div className="space-y-3">
-                      {items.map((r) => (
-                        <Card key={r.url} size="sm" className="border-border/80 shadow-sm">
-                          <CardHeader className="pb-2">
-                            <div className="flex flex-wrap items-start justify-between gap-2">
-                              <CardTitle className="text-base font-semibold leading-snug">{r.name}</CardTitle>
-                              <span className="rounded-lg border border-border bg-muted/30 px-2 py-0.5 text-[12px] font-medium text-muted-foreground">
-                                {r.type}
-                              </span>
-                            </div>
-                            <CardDescription className="text-[14px] leading-relaxed">{r.desc}</CardDescription>
-                          </CardHeader>
-                          <CardContent className="flex flex-wrap items-center justify-between gap-2 pt-0">
-                            <p className="sf-helper max-w-prose italic text-muted-foreground">{r.covers}</p>
-                            <a
-                              href={r.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className={cn(
-                                buttonVariants({ variant: "outline", size: "sm" }),
-                                "h-9 shrink-0 gap-1 rounded-xl",
-                              )}
-                            >
-                              Open
-                              <ExternalLink className="size-3.5" />
-                            </a>
-                          </CardContent>
-                        </Card>
-                      ))}
+                      {items.map((r) => {
+                        const Icon = resourceIconForType(r.type);
+                        return (
+                          <Card key={r.url} size="sm" className="border-border/80 shadow-sm">
+                            <CardHeader className="pb-2">
+                              <div className="flex gap-3">
+                                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-primary-light text-primary">
+                                  <Icon className="size-5" aria-hidden />
+                                </div>
+                                <div className="min-w-0 flex-1 space-y-1">
+                                  <div className="flex flex-wrap items-start justify-between gap-2">
+                                    <CardTitle className="text-base font-semibold leading-snug">{r.name}</CardTitle>
+                                    <span className="rounded-lg border border-border bg-muted/30 px-2 py-0.5 text-[12px] font-medium text-muted-foreground">
+                                      {r.type}
+                                    </span>
+                                  </div>
+                                  <p className="text-[13px] font-medium leading-snug text-foreground">{r.desc}</p>
+                                  <CardDescription className="text-[13px] leading-relaxed text-muted-foreground">
+                                    {r.covers}
+                                  </CardDescription>
+                                </div>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="flex flex-wrap justify-end gap-2 pt-0">
+                              <a
+                                href={r.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={cn(
+                                  buttonVariants({ variant: "outline", size: "sm" }),
+                                  "h-9 shrink-0 gap-1 rounded-xl",
+                                )}
+                              >
+                                Open
+                                <ExternalLink className="size-3.5" />
+                              </a>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
@@ -216,6 +251,34 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
               </CardHeader>
               <CardContent className="flex flex-col items-center gap-6">
                 <RingProgress value={checklistPct} />
+                <ChecklistSparkline history={p?.checklistHistory} />
+                <SessionSparkline history={p?.sessionHistory} />
+                <div className="w-full space-y-2 rounded-xl border border-border/60 bg-muted/10 p-3">
+                  <p className="sf-helper font-medium text-muted-foreground">Log study for this skill</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Input
+                      type="number"
+                      min={1}
+                      max={480}
+                      className="h-10 w-24"
+                      value={skillLogMinutes}
+                      onChange={(e) => setSkillLogMinutes(Number(e.target.value) || 0)}
+                      aria-label="Minutes to log for this skill"
+                    />
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="h-10 rounded-xl"
+                      onClick={() => {
+                        if (skillLogMinutes < 1) return;
+                        logStudySession(skillLogMinutes, row.skill.name, row.key);
+                      }}
+                    >
+                      Log to path
+                    </Button>
+                  </div>
+                  <p className="sf-helper text-muted-foreground">Counts toward your streak and this skill&apos;s minutes chart.</p>
+                </div>
                 <div className="flex w-full flex-col gap-2">
                   <p className="sf-helper text-center font-medium text-muted-foreground">Status</p>
                   <div className="flex flex-wrap justify-center gap-2">
@@ -303,13 +366,20 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                   {tasks.map((t) => (
                     <li
                       key={t.id}
-                      className="flex items-start gap-3 rounded-xl border border-border/60 bg-muted/10 px-3 py-2.5"
+                      className={cn(
+                        "flex items-start gap-3 rounded-xl border border-border/60 bg-muted/10 px-3 py-2.5 transition-colors",
+                        flashTaskId === t.id && "sf-task-row-done",
+                      )}
                     >
                       <Checkbox
                         checked={t.completed}
-                        onCheckedChange={(checked) =>
-                          setTaskCompleted(row.key, row.skill.name, t.id, Boolean(checked))
-                        }
+                        onCheckedChange={(checked) => {
+                          setTaskCompleted(row.key, row.skill.name, t.id, Boolean(checked));
+                          if (checked) {
+                            setFlashTaskId(t.id);
+                            window.setTimeout(() => setFlashTaskId(null), 400);
+                          }
+                        }}
                         className="mt-0.5"
                       />
                       <span
@@ -326,19 +396,84 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
               </CardContent>
             </Card>
 
+            <Card className="border-border/80 border-dashed border-primary/30 bg-primary-light/40 shadow-sm dark:bg-primary-light/10">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Package className="size-5 text-primary" aria-hidden />
+                  <CardTitle className="sf-card-title">Ship your proof</CardTitle>
+                </div>
+                <CardDescription>Hiring managers trust artifacts — not intentions.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 text-[14px]">
+                <ul className="list-inside list-disc space-y-2 text-muted-foreground">
+                  <li>Repo or demo that shows the skill in use</li>
+                  <li>Practice log with reps at medium+ difficulty</li>
+                  <li>Optional: cert score or mock exam screenshot</li>
+                </ul>
+                <div className="flex flex-col gap-2">
+                  {relatedProjects.length > 0 ? (
+                    relatedProjects.map((proj) => (
+                      <Link
+                        key={proj.id}
+                        href={`/projects#project-${proj.id}`}
+                        className={cn(buttonVariants({ variant: "default", size: "sm" }), "h-auto min-h-9 justify-start rounded-xl py-2 text-left")}
+                      >
+                        <Package className="mr-2 size-3.5 shrink-0" aria-hidden />
+                        <span className="line-clamp-2">{proj.title}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <Link href="/projects" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}>
+                      Create or link a project
+                    </Link>
+                  )}
+                  <Link href="/practice" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}>
+                    Practice log
+                  </Link>
+                  {matchedCert ? (
+                    <Link
+                      href={`/certifications#cert-${matchedCert.id}`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-auto min-h-9 justify-start gap-1 rounded-xl py-2")}
+                    >
+                      <Award className="size-3.5 shrink-0" aria-hidden />
+                      <span className="line-clamp-2">{matchedCert.name}</span>
+                    </Link>
+                  ) : row.skill.cert ? (
+                    <Link
+                      href="/certifications"
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 gap-1 rounded-xl")}
+                    >
+                      <Award className="size-3.5" aria-hidden />
+                      Certs
+                    </Link>
+                  ) : null}
+                </div>
+                <p className="sf-helper flex items-start gap-2 text-muted-foreground">
+                  <Camera className="mt-0.5 size-4 shrink-0" aria-hidden />
+                  Drop a screenshot or link in Notes when you ship — future you will thank you.
+                </p>
+              </CardContent>
+            </Card>
+
             <Card className="border-border/80 shadow-sm">
               <CardHeader>
                 <CardTitle className="sf-card-title">Related project</CardTitle>
                 <CardDescription>Build to prove the skill.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3 text-[14px]">
-                {relatedProject ? (
+                {relatedProjects[0] ? (
                   <>
-                    <p className="font-semibold text-foreground">{relatedProject.title}</p>
-                    <p className="sf-helper capitalize text-muted-foreground">Status: {relatedProject.status}</p>
-                    <p className="text-muted-foreground">{relatedProject.notes}</p>
-                    <Link href="/projects" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}>
-                      Open projects
+                    <p className="font-semibold text-foreground">{relatedProjects[0].title}</p>
+                    <p className="sf-helper capitalize text-muted-foreground">Status: {relatedProjects[0].status}</p>
+                    <p className="text-muted-foreground">{relatedProjects[0].notes}</p>
+                    {relatedProjects.length > 1 ? (
+                      <p className="text-xs text-muted-foreground">+{relatedProjects.length - 1} more linked in Projects.</p>
+                    ) : null}
+                    <Link
+                      href={`/projects#project-${relatedProjects[0].id}`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}
+                    >
+                      Jump to project
                     </Link>
                   </>
                 ) : (
@@ -361,7 +496,7 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                   <p className="font-semibold">{row.skill.cert.name}</p>
                   <p className="text-muted-foreground">{row.skill.cert.desc}</p>
                   <Link
-                    href="/certifications"
+                    href={matchedCert ? `/certifications#cert-${matchedCert.id}` : "/certifications"}
                     className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-2 inline-flex h-9 rounded-xl")}
                   >
                     Track readiness

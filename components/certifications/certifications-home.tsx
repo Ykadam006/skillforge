@@ -19,7 +19,7 @@ export function CertificationsHome() {
   return (
     <div className="space-y-6">
       {certifications.map((c) => (
-        <Card key={c.id}>
+        <Card key={c.id} id={`cert-${c.id}`}>
           <CardHeader>
             <CardTitle>{c.name}</CardTitle>
             <CardDescription>

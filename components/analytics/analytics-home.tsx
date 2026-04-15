@@ -1,19 +1,9 @@
 "use client";
 
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  PolarAngleAxis,
-  PolarGrid,
-  Radar,
-  RadarChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   activityMinutesRollingDays,
   categoryCompletion,
@@ -21,15 +11,35 @@ import {
   guideStatusCounts,
   radarSnapshot,
 } from "@/lib/analytics";
+import { mergeRadarWithTargets } from "@/lib/radar-targets";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
+
+const AnalyticsCharts = dynamic(
+  () => import("@/components/analytics/analytics-charts").then((m) => m.AnalyticsCharts),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="grid gap-6 lg:grid-cols-2" aria-busy="true" aria-label="Loading analytics charts">
+        <div className="h-80 animate-pulse rounded-2xl bg-muted/40" />
+        <div className="h-80 animate-pulse rounded-2xl bg-muted/40" />
+      </div>
+    ),
+  },
+);
 
 export function AnalyticsHome() {
   const skillProgress = useSkillforgeStore((s) => s.skillProgress);
   const studySessions = useSkillforgeStore((s) => s.studySessions);
   const practiceEntries = useSkillforgeStore((s) => s.practiceEntries);
+  const radarTargetsByAxis = useSkillforgeStore((s) => s.radarTargetsByAxis);
+  const setRadarTarget = useSkillforgeStore((s) => s.setRadarTarget);
   const stats = completionStats(skillProgress);
   const byCat = categoryCompletion(skillProgress);
   const radar = radarSnapshot(skillProgress);
+  const radarWithTargets = useMemo(
+    () => mergeRadarWithTargets(radar, radarTargetsByAxis),
+    [radar, radarTargetsByAxis],
+  );
   const resume = guideStatusCounts();
   const minutes7d = activityMinutesRollingDays(studySessions, practiceEntries, 7);
 
@@ -68,60 +78,36 @@ export function AnalyticsHome() {
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Confidence radar</CardTitle>
-            <CardDescription>Average self-rated confidence by area (normalized).</CardDescription>
-          </CardHeader>
-          <CardContent className="h-80 min-h-80 min-w-0 shrink-0">
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              minWidth={0}
-              minHeight={280}
-              initialDimension={{ width: 520, height: 320 }}
-            >
-              <RadarChart data={radar} cx="50%" cy="50%" outerRadius="80%">
-                <PolarGrid />
-                <PolarAngleAxis dataKey="axis" tick={{ fontSize: 11 }} />
-                <Radar
-                  name="Strength"
-                  dataKey="value"
-                  stroke="var(--chart-4)"
-                  fill="var(--chart-4)"
-                  fillOpacity={0.35}
+      <Card>
+        <CardHeader>
+          <CardTitle>Radar target profile</CardTitle>
+          <CardDescription>
+            Set a 0–100 target per axis (e.g. from a job description). The dashed overlay on the radar uses these values.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {radar.map((r) => (
+              <div key={r.axis} className="space-y-1">
+                <label htmlFor={`radar-target-${r.axis}`} className="text-xs font-medium text-muted-foreground">
+                  {r.axis}
+                </label>
+                <Input
+                  id={`radar-target-${r.axis}`}
+                  type="number"
+                  min={0}
+                  max={100}
+                  className="h-9"
+                  value={radarTargetsByAxis[r.axis] ?? 70}
+                  onChange={(e) => setRadarTarget(r.axis, Number(e.target.value))}
                 />
-                <Tooltip />
-              </RadarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Category completion</CardTitle>
-            <CardDescription>Percent of skills marked done per section.</CardDescription>
-          </CardHeader>
-          <CardContent className="h-80 min-h-80 min-w-0 shrink-0">
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              minWidth={0}
-              minHeight={280}
-              initialDimension={{ width: 520, height: 320 }}
-            >
-              <BarChart data={byCat} layout="vertical" margin={{ left: 8, right: 16 }}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" horizontal={false} />
-                <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-                <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11 }} />
-                <Tooltip formatter={(v) => [`${Number(v ?? 0)}%`, "Done"]} />
-                <Bar dataKey="pct" radius={[0, 6, 6, 0]} fill="var(--chart-5)" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
+      <AnalyticsCharts radarWithTargets={radarWithTargets} byCat={byCat} />
     </div>
   );
 }

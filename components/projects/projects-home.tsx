@@ -34,6 +34,7 @@ export function ProjectsHome() {
       {projects.map((p) => (
         <ProjectEditor
           key={p.id}
+          anchorId={`project-${p.id}`}
           project={p}
           skillLabel={(key) => skillLabelByKey.get(key) ?? key}
           onSave={upsertProject}
@@ -44,10 +45,12 @@ export function ProjectsHome() {
 }
 
 function ProjectEditor({
+  anchorId,
   project,
   skillLabel,
   onSave,
 }: {
+  anchorId: string;
   project: Project;
   skillLabel: (key: string) => string;
   onSave: (p: Project) => void;
@@ -59,7 +62,7 @@ function ProjectEditor({
   const [status, setStatus] = useState<ProjectStatus>(project.status);
 
   return (
-    <Card>
+    <Card id={anchorId}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>Linked skills: {project.skillKeys.map(skillLabel).join(" · ")}</CardDescription>
