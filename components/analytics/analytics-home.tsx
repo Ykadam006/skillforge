@@ -74,8 +74,14 @@ export function AnalyticsHome() {
             <CardTitle>Confidence radar</CardTitle>
             <CardDescription>Average self-rated confidence by area (normalized).</CardDescription>
           </CardHeader>
-          <CardContent className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
+          <CardContent className="h-80 min-h-80 min-w-0 shrink-0">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minWidth={0}
+              minHeight={280}
+              initialDimension={{ width: 520, height: 320 }}
+            >
               <RadarChart data={radar} cx="50%" cy="50%" outerRadius="80%">
                 <PolarGrid />
                 <PolarAngleAxis dataKey="axis" tick={{ fontSize: 11 }} />
@@ -97,8 +103,14 @@ export function AnalyticsHome() {
             <CardTitle>Category completion</CardTitle>
             <CardDescription>Percent of skills marked done per section.</CardDescription>
           </CardHeader>
-          <CardContent className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
+          <CardContent className="h-80 min-h-80 min-w-0 shrink-0">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minWidth={0}
+              minHeight={280}
+              initialDimension={{ width: 520, height: 320 }}
+            >
               <BarChart data={byCat} layout="vertical" margin={{ left: 8, right: 16 }}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" horizontal={false} />
                 <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />

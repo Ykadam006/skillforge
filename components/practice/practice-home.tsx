@@ -24,6 +24,7 @@ export function PracticeHome() {
   const [minutes, setMinutes] = useState(30);
   const [logMinutes, setLogMinutes] = useState(45);
   const [logCategory, setLogCategory] = useState("DSA");
+  const canLogStudy = logMinutes >= 1;
 
   const solved = practiceEntries.filter((p) => p.solved).length;
   const streak = useMemo(
@@ -136,11 +137,23 @@ export function PracticeHome() {
             <Input value={logCategory} onChange={(e) => setLogCategory(e.target.value)} placeholder="Category" />
             <Input
               type="number"
-              min={5}
+              min={1}
+              max={1440}
               value={logMinutes}
               onChange={(e) => setLogMinutes(Number(e.target.value) || 0)}
+              aria-label="Study log minutes"
+              aria-invalid={!canLogStudy}
+              aria-describedby="practice-study-minutes-hint"
             />
-            <Button type="button" variant="secondary" onClick={() => logStudySession(logMinutes, logCategory)}>
+            <p id="practice-study-minutes-hint" className="text-xs text-muted-foreground">
+              Use at least 1 minute per log (up to 1440 minutes — one day — is saved).
+            </p>
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={!canLogStudy}
+              onClick={() => logStudySession(logMinutes, logCategory)}
+            >
               Log session
             </Button>
           </CardContent>

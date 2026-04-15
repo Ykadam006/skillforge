@@ -17,7 +17,7 @@ import {
 } from "@/components/skills/skill-status-badge";
 import { findSkillBySlug } from "@/lib/guide";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
-import type { LearningStatus } from "@/types/guide";
+import type { GuideResource, LearningStatus } from "@/types/guide";
 
 function RingProgress({ value }: { value: number }) {
   const r = 40;
@@ -70,6 +70,17 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
     row ? s.projects.find((proj) => proj.skillKeys.includes(row.key)) : undefined,
   );
 
+  const resourcesByType = useMemo(() => {
+    if (!row) return {} as Record<string, GuideResource[]>;
+    const list = row.skill.resources ?? [];
+    return list.reduce<Record<string, GuideResource[]>>((acc, r) => {
+      const k = r.type || "Other";
+      acc[k] = acc[k] ?? [];
+      acc[k].push(r);
+      return acc;
+    }, {});
+  }, [row]);
+
   if (!row) return null;
 
   const p = progress;
@@ -79,16 +90,6 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
   const tasks = p?.tasks ?? [];
   const doneTasks = tasks.filter((t) => t.completed).length;
   const checklistPct = tasks.length ? Math.round((doneTasks / tasks.length) * 100) : 0;
-
-  const resourcesByType = useMemo(() => {
-    const list = row.skill.resources ?? [];
-    return list.reduce<Record<string, typeof list>>((acc, r) => {
-      const k = r.type || "Other";
-      acc[k] = acc[k] ?? [];
-      acc[k].push(r);
-      return acc;
-    }, {});
-  }, [row.skill.resources]);
 
   return (
     <div className="space-y-8">
@@ -109,11 +110,7 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                 <GuideStatusBadge status={row.skill.status} />
                 <LearningStatusBadge status={learning} />
                 <PriorityBadge priority={row.skill.priority} />
-                {row.skill.hot ? (
-                  <span className="inline-flex items-center rounded-lg border border-sky-200 bg-sky-50 px-2 py-0.5 text-[12px] font-semibold text-sky-900 dark:border-sky-900/40 dark:bg-sky-950/40 dark:text-sky-100">
-                    Hot 2026
-                  </span>
-                ) : null}
+                {row.skill.hot ? <span className="sf-pill-hot">Hot 2026</span> : null}
               </div>
               <div>
                 <p className="sf-helper font-medium text-muted-foreground">{row.categoryLabel}</p>

@@ -145,7 +145,12 @@ export function DashboardHome() {
               </CardDescription>
             </CardHeader>
             <CardContent className="sf-chart-card px-2 pb-2">
-              <ResponsiveContainer width="100%" height={260}>
+              <ResponsiveContainer
+                width="100%"
+                height={260}
+                minWidth={0}
+                initialDimension={{ width: 640, height: 260 }}
+              >
                 <LineChart data={byDay} margin={{ left: 4, right: 12, top: 12, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
                   <XAxis
@@ -193,7 +198,12 @@ export function DashboardHome() {
               <CardDescription>Share of skills marked complete in each section.</CardDescription>
             </CardHeader>
             <CardContent className="sf-chart-card px-2 pb-2">
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer
+                width="100%"
+                height={280}
+                minWidth={0}
+                initialDimension={{ width: 640, height: 280 }}
+              >
                 <BarChart data={byCat} layout="vertical" margin={{ left: 4, right: 16, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
                   <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fontSize: 11 }} axisLine={false} />
@@ -249,7 +259,12 @@ export function DashboardHome() {
               <CardDescription>Honest marks only — done means done.</CardDescription>
             </CardHeader>
             <CardContent className="sf-chart-card flex flex-col items-center justify-center px-2 pb-4">
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer
+                width="100%"
+                height={240}
+                minWidth={0}
+                initialDimension={{ width: 360, height: 240 }}
+              >
                 <PieChart>
                   <Pie
                     data={donut}

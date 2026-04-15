@@ -37,11 +37,13 @@ export function AppSidebar() {
   const skillProgress = useSkillforgeStore((s) => s.skillProgress);
 
   useEffect(() => {
-    try {
-      setCollapsed(localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === "1");
-    } catch {
-      /* ignore */
-    }
+    queueMicrotask(() => {
+      try {
+        setCollapsed(localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === "1");
+      } catch {
+        /* ignore */
+      }
+    });
   }, []);
 
   const toggleCollapse = () => {

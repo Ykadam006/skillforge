@@ -8,17 +8,19 @@ export function ThemeToggle({ collapsed }: { collapsed?: boolean }) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    try {
-      if (localStorage.getItem("sf-theme") === "dark") {
-        document.documentElement.classList.add("dark");
-        setDark(true);
-      } else {
-        document.documentElement.classList.remove("dark");
+    queueMicrotask(() => {
+      try {
+        if (localStorage.getItem("sf-theme") === "dark") {
+          document.documentElement.classList.add("dark");
+          setDark(true);
+        } else {
+          document.documentElement.classList.remove("dark");
+          setDark(false);
+        }
+      } catch {
         setDark(false);
       }
-    } catch {
-      setDark(false);
-    }
+    });
   }, []);
 
   const toggle = () => {
