@@ -1,0 +1,233 @@
+import type { GuideCategory } from "@/types/guide";
+
+export const backend: GuideCategory = {
+  id: "backend",
+  label: "Backend",
+  skills: [
+    {
+      name: "Node.js + Express",
+      status: "have",
+      priority: 1,
+      why: "Node is your primary backend runtime for full-stack roles. Deep understanding of the event loop and async patterns separates candidates.",
+      levels: [
+        {
+          label: "beginner",
+          topics: [
+            "<strong>Node.js basics:</strong> require vs import, __dirname, __filename, process.env, process.exit",
+            "<strong>Built-in modules:</strong> fs (file system), path, http, os, events, stream, crypto",
+            "<strong>npm:</strong> package.json scripts, devDependencies vs dependencies, semantic versioning",
+            "<strong>Express setup:</strong> app.get/post/put/delete, req/res objects, listening on port",
+            "<strong>Middleware:</strong> app.use(), next(), middleware order matters, error handling middleware",
+            "<strong>Request parsing:</strong> express.json(), express.urlencoded(), query params vs body vs params",
+            "<strong>Environment variables:</strong> dotenv, never hardcode secrets",
+          ],
+        },
+        {
+          label: "intermediate",
+          topics: [
+            "<strong>REST API architecture:</strong> MVC pattern, routes → controllers → services → repositories",
+            "<strong>Authentication:</strong> JWT (sign, verify, decode), bcrypt (hash, compare), refresh tokens",
+            "<strong>Error handling:</strong> centralized error handler, custom AppError class, async wrapper",
+            "<strong>Validation:</strong> Zod for request validation (you know this), express-validator alternative",
+            "<strong>Rate limiting:</strong> express-rate-limit, sliding window with Redis",
+            "<strong>CORS:</strong> same-origin policy, cors middleware config, allowed origins",
+            "<strong>File uploads:</strong> multer for multipart/form-data, storing to S3",
+            "<strong>Testing APIs:</strong> supertest for integration tests, mocking with jest",
+          ],
+        },
+        {
+          label: "advanced",
+          topics: [
+            "<strong>Event loop deep dive:</strong> libuv, phase diagram, microtasks vs macrotasks, nextTick",
+            "<strong>Streams:</strong> Readable, Writable, Transform, Duplex — pipe(), backpressure",
+            "<strong>Worker threads:</strong> offload CPU-intensive work, SharedArrayBuffer",
+            "<strong>Clustering:</strong> cluster module, PM2 for production process management",
+            "<strong>GraphQL with Apollo Server:</strong> schema, resolvers, DataLoader for N+1 problem",
+            "<strong>WebSockets:</strong> socket.io, real-time bidirectional communication",
+          ],
+        },
+      ],
+      resources: [
+        {
+          name: "Node.js Official Docs",
+          url: "https://nodejs.org/en/docs",
+          type: "Docs",
+          desc: "Complete free reference. The 'Guides' section covers architecture deeply.",
+          covers: "Covers: every built-in module, event loop guide, debugging guide",
+        },
+        {
+          name: "Hussein Nasser Backend Engineering",
+          url: "https://www.youtube.com/@hnasr",
+          type: "YouTube",
+          desc: "The best free backend engineering channel. Covers Node.js, PostgreSQL, system design, protocols.",
+          covers: "Covers: event loop internals, HTTP/2, WebSockets, DB fundamentals, connection pooling",
+        },
+        {
+          name: "The Odin Project Node/Express",
+          url: "https://www.theodinproject.com/paths/full-stack-javascript",
+          type: "Course",
+          desc: "Free project-based Node.js curriculum. Build a full app with auth.",
+          covers: "Covers: Express, auth, SQL, deployment — with real projects",
+        },
+        {
+          name: "Node.js Best Practices (GitHub)",
+          url: "https://github.com/goldbergyoni/nodebestpractices",
+          type: "Reference",
+          desc: "Community-maintained free guide. 100+ best practices for production Node.js.",
+          covers: "Covers: project structure, error handling, security, testing, deployment",
+        },
+      ],
+      note: "The event loop is always asked in Node.js interviews. Be able to explain microtasks (Promises, queueMicrotask) vs macrotasks (setTimeout, setInterval) and why nextTick runs first.",
+    },
+    {
+      name: "Spring Boot",
+      status: "have",
+      priority: 2,
+      why: "Your Java resume targets backend roles. Spring Boot mastery is the primary differentiator for those roles.",
+      levels: [
+        {
+          label: "beginner",
+          topics: [
+            "<strong>Spring IoC container:</strong> ApplicationContext, @Bean, @Component, @Service, @Repository, @Controller",
+            "<strong>Dependency injection:</strong> constructor injection (preferred), @Autowired, @Qualifier",
+            "<strong>REST controller:</strong> @RestController, @GetMapping, @PostMapping, @RequestBody, @PathVariable, @RequestParam",
+            "<strong>Spring Data JPA:</strong> @Entity, @Id, @GeneratedValue, JpaRepository, custom queries with @Query",
+            "<strong>application.properties/yml:</strong> datasource, server port, profiles (dev/prod)",
+            "<strong>Spring Boot DevTools:</strong> live reload during development",
+            "<strong>Running and packaging:</strong> mvn spring-boot:run, mvn package, executable JAR",
+          ],
+        },
+        {
+          label: "intermediate",
+          topics: [
+            "<strong>Spring Security:</strong> SecurityFilterChain, JWT filter, UserDetailsService, RBAC with @PreAuthorize",
+            "<strong>Exception handling:</strong> @ControllerAdvice, @ExceptionHandler, ProblemDetail (RFC 7807)",
+            "<strong>Spring Boot Actuator:</strong> health, metrics, info endpoints — used in production monitoring",
+            "<strong>Database migrations:</strong> Flyway or Liquibase — never change schema manually in production",
+            "<strong>Spring Batch (key for your Java resume):</strong> Job, Step, ItemReader, ItemProcessor, ItemWriter — ETL pattern",
+            "<strong>Validation:</strong> @Valid, @NotNull, @Size, custom validators with ConstraintValidator",
+            "<strong>Caching:</strong> @Cacheable, @CacheEvict with Spring Cache + Redis backend",
+            "<strong>Testing:</strong> @SpringBootTest, @WebMvcTest, MockMvc, @DataJpaTest, Testcontainers",
+          ],
+        },
+        {
+          label: "advanced",
+          topics: [
+            "<strong>Spring WebFlux:</strong> reactive programming with Project Reactor, Mono/Flux, R2DBC",
+            "<strong>Spring Cloud:</strong> Config Server, Eureka service discovery, Spring Cloud Gateway",
+            "<strong>Kafka with Spring:</strong> @KafkaListener, KafkaTemplate — address your resume's Kafka claim",
+            "<strong>Spring Native:</strong> GraalVM native images for fast startup",
+            "<strong>Observability:</strong> Micrometer, Prometheus metrics, structured logging with Logback",
+          ],
+        },
+      ],
+      resources: [
+        {
+          name: "Spring Official Guides",
+          url: "https://spring.io/guides",
+          type: "Course",
+          desc: "Official free guides — each guide builds a complete working feature in 15-30 minutes.",
+          covers: "Covers: every Spring feature with minimal working examples",
+        },
+        {
+          name: "Baeldung Spring Tutorials",
+          url: "https://www.baeldung.com/spring-tutorial",
+          type: "Reference",
+          desc: "Most comprehensive free Spring reference. Every Spring topic covered in depth.",
+          covers: "Covers: Spring Security, Spring Data JPA, Spring Batch, Spring Cloud, testing",
+        },
+        {
+          name: "Amigoscode Spring Boot (YouTube)",
+          url: "https://www.youtube.com/watch?v=9SGDpanrc8U",
+          type: "YouTube",
+          desc: "Free 3-hour Spring Boot full course. Builds a full REST API with PostgreSQL.",
+          covers: "Covers: REST controllers, JPA, security, Docker — complete project",
+        },
+        {
+          name: "Spring Framework Reference",
+          url: "https://docs.spring.io/spring-framework/reference/",
+          type: "Docs",
+          desc: "Complete official documentation. Free.",
+          covers: "Covers: IoC container, AOP, data access, web servlet, reactive — everything",
+        },
+        {
+          name: "Spring Batch Reference Docs",
+          url: "https://docs.spring.io/spring-batch/docs/current/reference/html/",
+          type: "Docs",
+          desc: "Official Spring Batch docs — essential for your Java/ETL resume.",
+          covers: "Covers: job configuration, readers/writers/processors, partitioning, retry",
+        },
+      ],
+      note: "URGENT: Your Java resume lists Kafka but no project demonstrates it. Either add a Spring Kafka demo project or remove it. Study Spring Batch too — it directly addresses the ETL role you applied for.",
+    },
+    {
+      name: "Kafka (address Java resume gap)",
+      status: "need",
+      priority: 1,
+      why: "Kafka is listed on your Java resume but has no supporting project. This is a credibility risk that interviewers will probe.",
+      levels: [
+        {
+          label: "beginner — understand the concepts",
+          topics: [
+            "<strong>Why Kafka:</strong> event streaming vs messaging, log-based architecture, offset management",
+            "<strong>Core concepts:</strong> broker, topic, partition, offset, consumer group, producer",
+            "<strong>How messages flow:</strong> producer → broker → partition → consumer — draw this from memory",
+            "<strong>Kafka vs RabbitMQ vs SQS:</strong> know the trade-offs for interviews",
+            "<strong>At-least-once vs exactly-once delivery:</strong> understand idempotency",
+          ],
+        },
+        {
+          label: "intermediate",
+          topics: [
+            "<strong>Spring Kafka:</strong> @KafkaListener, @EnableKafka, KafkaTemplate, ConsumerRecord, ProducerRecord",
+            "<strong>Serialization:</strong> StringSerializer, JsonSerializer, Avro + Schema Registry",
+            "<strong>Consumer group rebalancing:</strong> what happens when a consumer joins/leaves",
+            "<strong>Offset management:</strong> auto-commit vs manual commit, earliest vs latest offset",
+            "<strong>Error handling:</strong> dead letter topics, retry with backoff, @RetryableTopic",
+            "<strong>Build something:</strong> event-driven order processing, real-time notifications, or audit log",
+          ],
+        },
+        {
+          label: "advanced",
+          topics: [
+            "<strong>Kafka Streams:</strong> stateful stream processing, joins, windowing",
+            "<strong>Transactions:</strong> exactly-once semantics in producer and consumer",
+            "<strong>Kafka Connect:</strong> source/sink connectors for databases",
+            "<strong>Topic partitioning strategy:</strong> partition keys, ordering guarantees",
+          ],
+        },
+      ],
+      resources: [
+        {
+          name: "Apache Kafka Official Docs",
+          url: "https://kafka.apache.org/documentation/",
+          type: "Docs",
+          desc: "Free complete reference. Start with the 'Introduction' section.",
+          covers: "Covers: every Kafka concept in detail",
+        },
+        {
+          name: "Confluent Kafka Tutorials (free)",
+          url: "https://developer.confluent.io/tutorials/",
+          type: "Course",
+          desc: "Confluent's free interactive tutorials. Hands-on with a real Kafka cluster.",
+          covers: "Covers: producer/consumer, Kafka Streams, Connect, Schema Registry",
+        },
+        {
+          name: "Spring Kafka Reference Docs",
+          url: "https://docs.spring.io/spring-kafka/docs/current/reference/html/",
+          type: "Docs",
+          desc: "Official Spring Kafka docs — everything you need to build with it.",
+          covers: "Covers: listeners, templates, error handling, transactions",
+        },
+        {
+          name: "TechWorld with Nana Kafka (YouTube)",
+          url: "https://www.youtube.com/watch?v=SqVfCyfCJqw",
+          type: "YouTube",
+          desc: "Free 1-hour Kafka crash course. Great conceptual introduction.",
+          covers: "Covers: topics, partitions, consumer groups, use cases",
+        },
+      ],
+      note: "ACTION REQUIRED: Build a small Spring Boot + Kafka demo. Minimum: a producer that sends events (e.g. 'job application created') and a consumer that processes them. Add it to GitHub and put it on your Java resume. This turns a liability into a strength.",
+    },
+  ],
+};

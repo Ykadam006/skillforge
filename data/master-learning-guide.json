@@ -1,0 +1,2049 @@
+{
+  "cats": [
+    {
+      "id": "lang",
+      "label": "Languages",
+      "skills": [
+        {
+          "name": "TypeScript",
+          "status": "have",
+          "priority": 1,
+          "hot": true,
+          "why": "TypeScript is the default language for every full-stack role. If you can't write typed code fluently you lose interviews.",
+          "levels": [
+            {
+              "label": "beginner — master these first",
+              "topics": [
+                "<strong>Types:</strong> string, number, boolean, null, undefined, void, any, unknown, never — know when to use each",
+                "<strong>Arrays & objects:</strong> typed arrays (string[]), typed objects, optional fields with ?",
+                "<strong>Functions:</strong> parameter types, return types, optional params, default params, rest params",
+                "<strong>Type aliases vs interfaces:</strong> when to use type vs interface — interfaces are extendable, types are composable",
+                "<strong>Union types:</strong> string | number — handle each case with type guards (typeof, instanceof)",
+                "<strong>Intersection types:</strong> TypeA & TypeB — combine types",
+                "<strong>Enums:</strong> const enums vs regular enums, string enums",
+                "<strong>Type assertions:</strong> as keyword, when to use and when to avoid",
+                "<strong>tsconfig.json:</strong> strict mode, target, module, paths — understand every option you set"
+              ]
+            },
+            {
+              "label": "intermediate — where interviews test you",
+              "topics": [
+                "<strong>Generics:</strong> function generics <T>, class generics, constrained generics <T extends ...>",
+                "<strong>Utility types:</strong> Partial<T>, Required<T>, Readonly<T>, Pick<T,K>, Omit<T,K>, Exclude, Extract, ReturnType, Parameters",
+                "<strong>Mapped types:</strong> { [K in keyof T]: ... } — build types from other types",
+                "<strong>Conditional types:</strong> T extends U ? X : Y — type-level if statements",
+                "<strong>Template literal types:</strong> `${string}Id` — typed string patterns",
+                "<strong>Discriminated unions:</strong> { kind: 'a', ... } | { kind: 'b', ... } — the most common pattern in React",
+                "<strong>TypeScript with React:</strong> React.FC vs function signatures, event types, ref types, children prop",
+                "<strong>Type narrowing:</strong> if checks, in operator, instanceof, type predicates (x is Type)",
+                "<strong>Declaration merging, module augmentation</strong>"
+              ]
+            },
+            {
+              "label": "advanced — stand out in senior interviews",
+              "topics": [
+                "<strong>Infer keyword:</strong> extract types from complex types dynamically",
+                "<strong>Recursive types:</strong> tree nodes, JSON types, deeply nested structures",
+                "<strong>Variance:</strong> covariance vs contravariance in function types",
+                "<strong>Declaration files (.d.ts):</strong> writing types for untyped libraries",
+                "<strong>Project references:</strong> monorepo TypeScript setup",
+                "<strong>TypeScript compiler API:</strong> writing custom transformers (advanced)"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Total TypeScript Free Tutorials",
+              "url": "https://www.totaltypescript.com/tutorials",
+              "type": "Course",
+              "desc": "Matt Pocock — the best TypeScript educator. Free exercises with in-browser TypeScript playground.",
+              "covers": "Covers: generics, type transformations, advanced patterns with immediate feedback"
+            },
+            {
+              "name": "TypeScript Official Handbook",
+              "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+              "type": "Docs",
+              "desc": "Complete free reference written by the TypeScript team at Microsoft.",
+              "covers": "Covers: every language feature from basics to advanced, always up to date"
+            },
+            {
+              "name": "TypeScript Playground",
+              "url": "https://www.typescriptlang.org/play",
+              "type": "Tool",
+              "desc": "Free browser tool — run TypeScript instantly, see compiled JS, share snippets.",
+              "covers": "Use this for every learning exercise. Zero setup."
+            },
+            {
+              "name": "JavaScript.info",
+              "url": "https://javascript.info",
+              "type": "Course",
+              "desc": "Best free JavaScript fundamentals resource. TypeScript builds on JS — know JS deeply first.",
+              "covers": "Covers: closures, prototypes, async/await, iterators, generators, modules"
+            },
+            {
+              "name": "Fireship TypeScript YouTube",
+              "url": "https://www.youtube.com/@Fireship",
+              "type": "YouTube",
+              "desc": "Fast 10-minute videos on TypeScript concepts. Good for initial understanding before going deep.",
+              "covers": "Covers: TypeScript basics, generics, utility types — search 'Fireship TypeScript'"
+            },
+            {
+              "name": "Type-Level TypeScript (free book)",
+              "url": "https://type-level-typescript.com",
+              "type": "Book",
+              "desc": "Free online book on advanced TypeScript type system. Chapter 1-6 are free.",
+              "covers": "Covers: conditional types, mapped types, template literals at expert level"
+            }
+          ],
+          "note": "Study order: JavaScript.info → TypeScript Handbook chapters 1-5 → Total TypeScript exercises → apply to every project you build"
+        },
+        {
+          "name": "JavaScript (ES6+)",
+          "status": "have",
+          "priority": 1,
+          "why": "JS is the foundation. If your JS fundamentals have gaps your TypeScript will have gaps too.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Variables:</strong> var vs let vs const, temporal dead zone, hoisting",
+                "<strong>Functions:</strong> declarations vs expressions, arrow functions, IIFE",
+                "<strong>Scope & closures:</strong> lexical scope, closure in loops, private data with closures",
+                "<strong>this keyword:</strong> call, apply, bind — how this changes context",
+                "<strong>Prototypes:</strong> prototype chain, Object.create, class syntax as syntactic sugar",
+                "<strong>Array methods:</strong> map, filter, reduce, find, findIndex, some, every, flat, flatMap",
+                "<strong>Destructuring:</strong> arrays, objects, nested, with defaults, in function params",
+                "<strong>Spread/rest:</strong> spread arrays/objects, rest params",
+                "<strong>Template literals:</strong> interpolation, tagged templates"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Promises:</strong> .then/.catch, Promise.all, Promise.allSettled, Promise.race, Promise.any",
+                "<strong>Async/await:</strong> try/catch with async, parallel with Promise.all, error propagation",
+                "<strong>Event loop:</strong> call stack, web APIs, callback queue, microtask queue — understand deeply for interviews",
+                "<strong>Modules:</strong> ES modules (import/export), CommonJS (require), interop",
+                "<strong>Generators & iterators:</strong> function*, yield, Symbol.iterator",
+                "<strong>WeakMap, WeakSet, WeakRef:</strong> memory management patterns",
+                "<strong>Proxy and Reflect:</strong> metaprogramming basics",
+                "<strong>Error handling:</strong> custom Error classes, error chaining"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Performance:</strong> memory leaks, garbage collection, V8 optimizations",
+                "<strong>Web APIs:</strong> IntersectionObserver, MutationObserver, ResizeObserver",
+                "<strong>Design patterns in JS:</strong> Module, Observer, Singleton, Factory, Strategy",
+                "<strong>Functional programming:</strong> pure functions, immutability, function composition, currying"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "JavaScript.info (The Modern JS Tutorial)",
+              "url": "https://javascript.info",
+              "type": "Course",
+              "desc": "The single best free JS resource. Structured, deep, covers modern JS completely.",
+              "covers": "Covers: every JS concept from basics to advanced in logical order"
+            },
+            {
+              "name": "You Don't Know JS (free GitHub book)",
+              "url": "https://github.com/getify/You-Dont-Know-JS",
+              "type": "Book",
+              "desc": "Kyle Simpson's free book series. 6 volumes on GitHub. Best for understanding JS deeply.",
+              "covers": "Covers: scope/closures, this/prototypes, types/grammar, async — the hard parts"
+            },
+            {
+              "name": "The Odin Project JavaScript",
+              "url": "https://www.theodinproject.com/paths/full-stack-javascript",
+              "type": "Course",
+              "desc": "Free project-based curriculum. Build real things while learning.",
+              "covers": "Covers: full JS + Node + React curriculum with actual projects"
+            },
+            {
+              "name": "javascript30.com",
+              "url": "https://javascript30.com",
+              "type": "Course",
+              "desc": "30 free JavaScript projects in 30 days. No frameworks, pure JS.",
+              "covers": "Covers: DOM manipulation, APIs, Canvas, CSS animations with JS"
+            },
+            {
+              "name": "Event Loop Visualization",
+              "url": "https://www.jsv9000.app",
+              "type": "Tool",
+              "desc": "Free interactive event loop visualizer. Essential for understanding async JS.",
+              "covers": "Covers: see exactly how call stack + microtasks + macrotasks interact"
+            }
+          ],
+          "note": "The event loop is the most common JS interview topic. Study it until you can draw and explain it from memory."
+        },
+        {
+          "name": "Java",
+          "status": "have",
+          "priority": 2,
+          "why": "Your Java resume targets backend/ETL roles. Spring Boot is built on Java so deep Java knowledge is required.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>OOP fundamentals:</strong> classes, objects, constructors, access modifiers",
+                "<strong>Inheritance:</strong> extends, super keyword, method overriding, final classes",
+                "<strong>Interfaces & abstract classes:</strong> when to use each, default methods in interfaces",
+                "<strong>Collections framework:</strong> ArrayList, LinkedList, HashMap, HashSet, TreeMap, TreeSet, ArrayDeque",
+                "<strong>Generics:</strong> generic classes and methods, bounded wildcards (<? extends T>)",
+                "<strong>Exception handling:</strong> checked vs unchecked, try-catch-finally, try-with-resources, custom exceptions",
+                "<strong>Java 8 features:</strong> lambdas, method references, functional interfaces, Optional",
+                "<strong>Streams API:</strong> filter, map, collect, reduce, groupingBy, flatMap"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Concurrency:</strong> Thread, Runnable, ExecutorService, Future, CompletableFuture",
+                "<strong>Synchronization:</strong> synchronized, volatile, atomic classes, locks",
+                "<strong>Java memory model:</strong> heap vs stack, object references, GC basics",
+                "<strong>Design patterns:</strong> Builder, Factory, Singleton, Strategy, Observer, Decorator",
+                "<strong>Java 11-17 features:</strong> var keyword, records, sealed classes, text blocks, pattern matching instanceof",
+                "<strong>JVM internals:</strong> classloader, JIT compiler, GC algorithms (G1, ZGC, Shenandoah)",
+                "<strong>Serialization:</strong> Serializable interface, Jackson ObjectMapper, JSON binding"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Reactive programming:</strong> Project Reactor (Mono, Flux), RxJava basics",
+                "<strong>Java 21 virtual threads:</strong> Project Loom — massive concurrency with simple code",
+                "<strong>JVM tuning:</strong> heap sizing, GC flags, JFR profiling, JMC",
+                "<strong>Annotation processing:</strong> custom annotations, compile-time code generation",
+                "<strong>Reflection API:</strong> runtime class inspection — used heavily by Spring"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "MOOC.fi Java Programming (Helsinki University)",
+              "url": "https://java-programming.mooc.fi",
+              "type": "Course",
+              "desc": "Best free Java course in existence. 14 weeks, 200+ exercises, from zero to advanced.",
+              "covers": "Covers: OOP, collections, algorithms, GUIs, networking — completely free"
+            },
+            {
+              "name": "Baeldung",
+              "url": "https://www.baeldung.com",
+              "type": "Reference",
+              "desc": "The most comprehensive free Java/Spring reference site. Deep articles on every topic.",
+              "covers": "Covers: every Java and Spring feature with code examples"
+            },
+            {
+              "name": "Jenkov Java Tutorials",
+              "url": "https://jenkov.com/tutorials/java/index.html",
+              "type": "Reference",
+              "desc": "Free deep tutorials on Java concurrency, NIO, reflection, design patterns.",
+              "covers": "Covers: concurrency and threading especially well"
+            },
+            {
+              "name": "Java Brains (YouTube)",
+              "url": "https://www.youtube.com/@JavaBrainsChannel",
+              "type": "YouTube",
+              "desc": "Free Spring Boot, design patterns, and Java concurrency courses.",
+              "covers": "Covers: Spring Boot from scratch, Java concurrency, microservices concepts"
+            },
+            {
+              "name": "Dev.java (Oracle free tutorials)",
+              "url": "https://dev.java/learn/",
+              "type": "Course",
+              "desc": "Oracle's official free Java learning platform. Covers Java 17-21 features.",
+              "covers": "Covers: modern Java features — streams, records, sealed classes, virtual threads"
+            }
+          ],
+          "note": "For your Java resume: focus on Collections, Streams, Concurrency, and Spring Boot. These are the topics Java backend interviews test most."
+        },
+        {
+          "name": "Python",
+          "status": "have",
+          "priority": 3,
+          "why": "Python is primarily useful for AI/LLM work (LangChain, FastAPI backends, data scripts). Worth keeping sharp.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Syntax:</strong> indentation, variables, types, control flow, functions",
+                "<strong>Data structures:</strong> lists, dicts, sets, tuples, list/dict comprehensions",
+                "<strong>String formatting:</strong> f-strings, format(), methods",
+                "<strong>File I/O:</strong> open, read, write, with statement (context managers)",
+                "<strong>Modules & packages:</strong> import, pip, virtualenv, requirements.txt"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>OOP:</strong> classes, __init__, __repr__, __str__, inheritance, dataclasses",
+                "<strong>Decorators:</strong> function decorators, class decorators — used everywhere in FastAPI",
+                "<strong>Type hints:</strong> List[str], Dict[str,int], Optional, Union — mypy for checking",
+                "<strong>Error handling:</strong> try/except/finally, custom exceptions",
+                "<strong>Pydantic:</strong> data validation models — critical for FastAPI and AI backends",
+                "<strong>Virtual environments:</strong> venv, poetry, pyenv"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Async Python:</strong> asyncio, async/await, aiohttp, httpx for async HTTP",
+                "<strong>FastAPI:</strong> build REST APIs with automatic OpenAPI docs — perfect for AI backends",
+                "<strong>Python with LLMs:</strong> openai library, anthropic library, langchain, litellm",
+                "<strong>Generator functions:</strong> yield, generator expressions — important for streaming LLM responses"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Python.org Official Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "type": "Docs",
+              "desc": "Free official Python tutorial. Thorough and always up to date.",
+              "covers": "Covers: every Python feature in a logical order"
+            },
+            {
+              "name": "Real Python",
+              "url": "https://realpython.com",
+              "type": "Reference",
+              "desc": "Many free tutorials (not all — filter for free ones). Practical, project-focused.",
+              "covers": "Covers: Python patterns, best practices, specific libraries"
+            },
+            {
+              "name": "FastAPI Official Docs",
+              "url": "https://fastapi.tiangolo.com",
+              "type": "Docs",
+              "desc": "FastAPI has the best documentation of any framework. Free, interactive examples.",
+              "covers": "Covers: building APIs, Pydantic models, async endpoints, OAuth2 auth"
+            },
+            {
+              "name": "freeCodeCamp Python (YouTube)",
+              "url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+              "type": "YouTube",
+              "desc": "Free 4-hour full Python course for beginners.",
+              "covers": "Covers: Python fundamentals from absolute zero"
+            }
+          ],
+          "note": "Your main Python use case is AI/LLM work. Focus on async Python + Pydantic + FastAPI and the LLM libraries."
+        },
+        {
+          "name": "SQL",
+          "status": "have",
+          "priority": 1,
+          "why": "SQL is tested in nearly every backend and full-stack interview. Window functions and query optimization are the most common interview gaps.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>SELECT:</strong> columns, aliases, DISTINCT, WHERE, comparison operators, BETWEEN, IN, LIKE",
+                "<strong>JOINs:</strong> INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN — know when each is appropriate",
+                "<strong>Aggregates:</strong> COUNT, SUM, AVG, MIN, MAX — with GROUP BY and HAVING",
+                "<strong>ORDER BY:</strong> ASC/DESC, multiple columns, NULLS FIRST/LAST",
+                "<strong>LIMIT and OFFSET:</strong> pagination basics",
+                "<strong>INSERT, UPDATE, DELETE:</strong> DML basics, WHERE clause safety",
+                "<strong>Subqueries:</strong> in WHERE, in FROM (derived tables), in SELECT"
+              ]
+            },
+            {
+              "label": "intermediate — most interview questions live here",
+              "topics": [
+                "<strong>Window functions:</strong> ROW_NUMBER(), RANK(), DENSE_RANK(), LEAD(), LAG(), FIRST_VALUE(), LAST_VALUE() — OVER (PARTITION BY ... ORDER BY ...)",
+                "<strong>CTEs (Common Table Expressions):</strong> WITH name AS (...) — replace nested subqueries",
+                "<strong>Recursive CTEs:</strong> WITH RECURSIVE — for hierarchical data (org charts, file systems)",
+                "<strong>Indexes:</strong> B-tree index, when PostgreSQL uses them, composite indexes, covering indexes",
+                "<strong>EXPLAIN ANALYZE:</strong> read query execution plans, identify seq scans vs index scans",
+                "<strong>Transactions:</strong> BEGIN, COMMIT, ROLLBACK, SAVEPOINT, isolation levels (READ COMMITTED, REPEATABLE READ, SERIALIZABLE)",
+                "<strong>Upserts:</strong> INSERT ... ON CONFLICT DO UPDATE (PostgreSQL) — common in APIs",
+                "<strong>JSON in PostgreSQL:</strong> json vs jsonb columns, ->, ->>, #>, jsonb_set, @> containment"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Query optimizer:</strong> planner statistics, ANALYZE, pg_stats, why queries go wrong",
+                "<strong>Partitioning:</strong> range, list, hash partitioning — for large tables",
+                "<strong>Materialized views:</strong> precomputed query results, REFRESH MATERIALIZED VIEW",
+                "<strong>Full-text search:</strong> tsvector, tsquery, GIN indexes",
+                "<strong>Row-level security:</strong> enable RLS, CREATE POLICY — used in multi-tenant SaaS",
+                "<strong>Connection pooling:</strong> PgBouncer, Supabase pooler, Neon's built-in pooling"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "SQLZoo (interactive exercises)",
+              "url": "https://sqlzoo.net",
+              "type": "Practice",
+              "desc": "Free browser-based SQL practice. Instant feedback. All levels.",
+              "covers": "Covers: SELECT, JOINs, aggregates, window functions, subqueries — 200+ exercises"
+            },
+            {
+              "name": "pgexercises.com",
+              "url": "https://pgexercises.com",
+              "type": "Practice",
+              "desc": "PostgreSQL-specific free exercises. Great for interview prep.",
+              "covers": "Covers: joins, aggregates, string operations, recursive queries, window functions"
+            },
+            {
+              "name": "Mode SQL Tutorial",
+              "url": "https://mode.com/sql-tutorial/",
+              "type": "Course",
+              "desc": "Free structured SQL course with focus on analytics queries.",
+              "covers": "Covers: window functions, pivoting data, date functions very well"
+            },
+            {
+              "name": "Use The Index, Luke (free book)",
+              "url": "https://use-the-index-luke.com",
+              "type": "Book",
+              "desc": "The definitive free book on SQL performance and indexes.",
+              "covers": "Covers: how indexes work internally, why queries are slow, how to fix them"
+            },
+            {
+              "name": "PostgreSQL Official Docs",
+              "url": "https://www.postgresql.org/docs/current/",
+              "type": "Docs",
+              "desc": "Complete free reference. The window functions page alone is worth bookmarking.",
+              "covers": "Covers: every PostgreSQL feature in exhaustive detail"
+            },
+            {
+              "name": "SQL Murder Mystery (fun practice)",
+              "url": "https://mystery.knightlab.com",
+              "type": "Practice",
+              "desc": "Free SQL learning game. Write queries to solve a mystery. Great for beginners.",
+              "covers": "Covers: JOINs, WHERE, subqueries in a fun context"
+            }
+          ],
+          "note": "Window functions (ROW_NUMBER, LAG, LEAD, PARTITION BY) appear in almost every data/backend SQL interview. Practice these specifically on pgexercises."
+        }
+      ]
+    },
+    {
+      "id": "frontend",
+      "label": "Frontend",
+      "skills": [
+        {
+          "name": "React",
+          "status": "have",
+          "priority": 1,
+          "hot": true,
+          "why": "React is your primary frontend skill. Going deep here pays more than any other frontend investment.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>JSX:</strong> expressions, attributes, className vs class, children prop",
+                "<strong>Components:</strong> function components, props, default props, prop types",
+                "<strong>useState:</strong> primitive state, object state (spread to update), array state",
+                "<strong>useEffect:</strong> side effects, dependency array, cleanup function — the most misunderstood hook",
+                "<strong>Conditional rendering:</strong> &&, ternary, early return patterns",
+                "<strong>Lists and keys:</strong> .map() in JSX, why keys matter, key stability",
+                "<strong>Event handling:</strong> onClick, onChange, onSubmit, preventing defaults",
+                "<strong>Controlled inputs:</strong> value + onChange pattern"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>useReducer:</strong> complex state logic, action pattern, when to prefer over useState",
+                "<strong>useContext:</strong> create context, provide, consume — avoid prop drilling",
+                "<strong>useMemo:</strong> memoize expensive calculations — only when needed",
+                "<strong>useCallback:</strong> stable function references for child component optimization",
+                "<strong>useRef:</strong> DOM refs, mutable values without re-render, forwarding refs",
+                "<strong>Custom hooks:</strong> extract logic into reusable hooks (useFetch, useLocalStorage, useDebounce)",
+                "<strong>React.memo:</strong> prevent unnecessary re-renders of expensive components",
+                "<strong>Portals:</strong> render outside parent DOM hierarchy (modals, tooltips)",
+                "<strong>Error boundaries:</strong> catch rendering errors, fallback UI",
+                "<strong>Suspense + lazy:</strong> code splitting, lazy load components",
+                "<strong>React Router v6:</strong> BrowserRouter, Routes, Route, Link, useNavigate, useParams, useSearchParams, nested routes, outlet"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>React 19 new features:</strong> useOptimistic, useActionState, use() hook, server actions integration",
+                "<strong>Concurrent features:</strong> startTransition, useDeferredValue — keep UI responsive during heavy updates",
+                "<strong>Virtualization:</strong> react-window or react-virtual for large lists (1000+ items)",
+                "<strong>Compound components pattern:</strong> flexible APIs like <Select><Option/></Select>",
+                "<strong>Render props pattern</strong> and when to prefer hooks instead",
+                "<strong>React profiler:</strong> identify unnecessary renders, expensive components",
+                "<strong>React reconciliation:</strong> how the virtual DOM diffing algorithm works"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "React Official Docs (react.dev)",
+              "url": "https://react.dev/learn",
+              "type": "Docs",
+              "desc": "Completely rewritten in 2023. Interactive, clear, builds up from basics. The best starting point.",
+              "covers": "Covers: every hook, patterns, thinking in React, adding interactivity, state management"
+            },
+            {
+              "name": "Jack Herrington YouTube",
+              "url": "https://www.youtube.com/@jherr",
+              "type": "YouTube",
+              "desc": "Advanced React patterns, hooks internals, state management comparisons — all free.",
+              "covers": "Covers: React 18/19 features, TypeScript with React, advanced patterns"
+            },
+            {
+              "name": "Josh W Comeau Blog",
+              "url": "https://www.joshwcomeau.com",
+              "type": "Blog",
+              "desc": "Deep free articles on React, CSS, animations. One of the best technical writers in frontend.",
+              "covers": "Covers: understanding hooks deeply, CSS in React, performance"
+            },
+            {
+              "name": "The Odin Project React",
+              "url": "https://www.theodinproject.com/paths/full-stack-javascript/courses/react",
+              "type": "Course",
+              "desc": "Free project-based React curriculum. Build real apps, not just exercises.",
+              "covers": "Covers: full React curriculum with projects from beginner to advanced"
+            },
+            {
+              "name": "React patterns (free reference)",
+              "url": "https://reactpatterns.com",
+              "type": "Reference",
+              "desc": "Quick reference for React patterns with examples.",
+              "covers": "Covers: all common patterns in condensed format"
+            },
+            {
+              "name": "useHooks.com",
+              "url": "https://usehooks.com",
+              "type": "Reference",
+              "desc": "Free collection of common custom hooks with explanations and source.",
+              "covers": "Covers: custom hook patterns — study these to understand advanced hook usage"
+            }
+          ],
+          "note": "The most tested React interview topics: useEffect cleanup, useState with objects, useCallback/useMemo trade-offs, and reconciliation. Study these specifically."
+        },
+        {
+          "name": "Next.js",
+          "status": "have",
+          "priority": 1,
+          "hot": true,
+          "why": "Next.js is on every full-stack job description. You already use it well — go deeper on App Router internals.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Pages vs App Router:</strong> understand both since many companies still use pages/",
+                "<strong>File-based routing:</strong> page.tsx, layout.tsx, loading.tsx, error.tsx, not-found.tsx",
+                "<strong>Server vs client components:</strong> the most important concept — 'use client' directive, what can be server-only",
+                "<strong>Data fetching:</strong> async server components, fetch with cache options",
+                "<strong>Image component:</strong> next/image — automatic optimization, sizes prop",
+                "<strong>Link component:</strong> next/link — prefetching behavior",
+                "<strong>Metadata API:</strong> static metadata, generateMetadata for dynamic pages"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Route handlers:</strong> app/api/route.ts — GET, POST, PATCH, DELETE with NextRequest/NextResponse",
+                "<strong>Server actions:</strong> 'use server' functions, form actions, useFormState, useFormStatus",
+                "<strong>Middleware:</strong> middleware.ts at root — auth guards, redirects, A/B testing",
+                "<strong>Dynamic routes:</strong> [id], [...slug], [[...slug]] — params in server components",
+                "<strong>Parallel routes:</strong> @folder convention — modals with intercepting routes",
+                "<strong>Caching deep dive:</strong> Request Memoization, Data Cache, Full Route Cache, Router Cache — understand each separately",
+                "<strong>Revalidation:</strong> revalidatePath, revalidateTag, time-based revalidation",
+                "<strong>Auth.js v5 (you use this):</strong> session, JWT, callbacks, middleware integration"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Streaming SSR:</strong> Suspense in server components, streaming HTML in chunks",
+                "<strong>Turbopack:</strong> Next.js 15 default bundler — configuration and differences from webpack",
+                "<strong>Edge runtime:</strong> middleware on edge, trade-offs vs Node.js runtime",
+                "<strong>On-demand ISR:</strong> webhooks triggering revalidation in CMS workflows",
+                "<strong>Next.js with Docker:</strong> standalone output mode, Dockerfile for Next.js",
+                "<strong>Monorepo with Next.js:</strong> Turborepo setup, shared packages"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Next.js Official Docs",
+              "url": "https://nextjs.org/docs",
+              "type": "Docs",
+              "desc": "Best source. Always current. App Router docs are the most comprehensive.",
+              "covers": "Covers: every App Router feature in detail with code examples"
+            },
+            {
+              "name": "Next.js Learn (official free course)",
+              "url": "https://nextjs.org/learn",
+              "type": "Course",
+              "desc": "Official interactive course — builds a full dashboard app. Free.",
+              "covers": "Covers: routing, data fetching, Server Actions, auth, deployment on Vercel"
+            },
+            {
+              "name": "Lee Robinson YouTube",
+              "url": "https://www.youtube.com/@leerob",
+              "type": "YouTube",
+              "desc": "Lee works at Vercel on Next.js. Free deep dives on App Router, caching, migrations.",
+              "covers": "Covers: App Router migration, caching explained, Server Actions, auth patterns"
+            },
+            {
+              "name": "Delba de Oliveira YouTube",
+              "url": "https://www.youtube.com/@delbaoliveira",
+              "type": "YouTube",
+              "desc": "Vercel engineer, free Next.js tutorials focusing on new App Router features.",
+              "covers": "Covers: Server Components, Suspense, streaming — explained clearly"
+            },
+            {
+              "name": "ByteGrad YouTube",
+              "url": "https://www.youtube.com/@ByteGrad",
+              "type": "YouTube",
+              "desc": "Practical Next.js App Router tutorials, free, very clear.",
+              "covers": "Covers: real-world patterns, Server Actions, auth with Auth.js"
+            }
+          ],
+          "note": "Caching in Next.js App Router is the hardest concept — most developers get it wrong. The 4 cache layers (Request Memo, Data Cache, Full Route Cache, Router Cache) are a very common interview question."
+        },
+        {
+          "name": "Tailwind CSS",
+          "status": "have",
+          "priority": 2,
+          "why": "Tailwind is standard. Deepen knowledge of responsive design, dark mode, and custom config.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Core utilities:</strong> margin, padding, width, height, display, position",
+                "<strong>Flexbox:</strong> flex, flex-row, flex-col, justify-, items-, gap-",
+                "<strong>Grid:</strong> grid, grid-cols-N, col-span-N, grid-rows-N, auto-rows",
+                "<strong>Typography:</strong> text-sm/base/lg/xl, font-normal/medium/bold, text-gray-500",
+                "<strong>Colors:</strong> text-{color}-{shade}, bg-{color}-{shade}, border-{color}-{shade}",
+                "<strong>Responsive:</strong> sm:, md:, lg:, xl:, 2xl: — mobile-first approach",
+                "<strong>Hover/focus/active:</strong> hover:, focus:, active: state modifiers"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Dark mode:</strong> dark: modifier, class strategy vs media strategy in config",
+                "<strong>@apply directive:</strong> extract repeated utilities into CSS component classes",
+                "<strong>tailwind.config.js:</strong> extend colors, fonts, spacing, breakpoints, add custom values",
+                "<strong>Arbitrary values:</strong> w-[137px], text-[#123456] — escape hatch for one-off values",
+                "<strong>Group and peer modifiers:</strong> group-hover:, peer-checked: — style children based on parent/sibling state",
+                "<strong>shadcn/ui integration:</strong> understand how shadcn uses Tailwind + CSS variables + Radix UI",
+                "<strong>Animation utilities:</strong> animate-spin, animate-pulse, animate-bounce, transition-all duration-300"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Tailwind v4:</strong> CSS-first config with @theme, major changes from v3",
+                "<strong>Custom plugins:</strong> plugin() API to add new utilities or components",
+                "<strong>Container queries:</strong> @container — responsive based on parent not viewport",
+                "<strong>Tailwind with Framer Motion:</strong> combining utility classes with motion animations"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Tailwind CSS Official Docs",
+              "url": "https://tailwindcss.com/docs",
+              "type": "Docs",
+              "desc": "Searchable, comprehensive, free. The docs have live preview for every class.",
+              "covers": "Covers: every utility class with visual preview, config reference, plugins"
+            },
+            {
+              "name": "Tailwind Labs YouTube",
+              "url": "https://www.youtube.com/@TailwindLabs",
+              "type": "YouTube",
+              "desc": "Official channel. Free screencasts building real UIs with Tailwind.",
+              "covers": "Covers: tips and tricks, new features, v4 migration"
+            },
+            {
+              "name": "shadcn/ui",
+              "url": "https://ui.shadcn.com",
+              "type": "Reference",
+              "desc": "Study the source code of shadcn components — best way to learn advanced Tailwind patterns.",
+              "covers": "Covers: how production Tailwind component libraries are structured"
+            }
+          ],
+          "note": "The main Tailwind interview question is about performance — how purging/tree-shaking works and why you should never use arbitrary string concatenation for class names."
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "skills": [
+        {
+          "name": "Node.js + Express",
+          "status": "have",
+          "priority": 1,
+          "why": "Node is your primary backend runtime for full-stack roles. Deep understanding of the event loop and async patterns separates candidates.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Node.js basics:</strong> require vs import, __dirname, __filename, process.env, process.exit",
+                "<strong>Built-in modules:</strong> fs (file system), path, http, os, events, stream, crypto",
+                "<strong>npm:</strong> package.json scripts, devDependencies vs dependencies, semantic versioning",
+                "<strong>Express setup:</strong> app.get/post/put/delete, req/res objects, listening on port",
+                "<strong>Middleware:</strong> app.use(), next(), middleware order matters, error handling middleware",
+                "<strong>Request parsing:</strong> express.json(), express.urlencoded(), query params vs body vs params",
+                "<strong>Environment variables:</strong> dotenv, never hardcode secrets"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>REST API architecture:</strong> MVC pattern, routes → controllers → services → repositories",
+                "<strong>Authentication:</strong> JWT (sign, verify, decode), bcrypt (hash, compare), refresh tokens",
+                "<strong>Error handling:</strong> centralized error handler, custom AppError class, async wrapper",
+                "<strong>Validation:</strong> Zod for request validation (you know this), express-validator alternative",
+                "<strong>Rate limiting:</strong> express-rate-limit, sliding window with Redis",
+                "<strong>CORS:</strong> same-origin policy, cors middleware config, allowed origins",
+                "<strong>File uploads:</strong> multer for multipart/form-data, storing to S3",
+                "<strong>Testing APIs:</strong> supertest for integration tests, mocking with jest"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Event loop deep dive:</strong> libuv, phase diagram, microtasks vs macrotasks, nextTick",
+                "<strong>Streams:</strong> Readable, Writable, Transform, Duplex — pipe(), backpressure",
+                "<strong>Worker threads:</strong> offload CPU-intensive work, SharedArrayBuffer",
+                "<strong>Clustering:</strong> cluster module, PM2 for production process management",
+                "<strong>GraphQL with Apollo Server:</strong> schema, resolvers, DataLoader for N+1 problem",
+                "<strong>WebSockets:</strong> socket.io, real-time bidirectional communication"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Node.js Official Docs",
+              "url": "https://nodejs.org/en/docs",
+              "type": "Docs",
+              "desc": "Complete free reference. The 'Guides' section covers architecture deeply.",
+              "covers": "Covers: every built-in module, event loop guide, debugging guide"
+            },
+            {
+              "name": "Hussein Nasser Backend Engineering",
+              "url": "https://www.youtube.com/@hnasr",
+              "type": "YouTube",
+              "desc": "The best free backend engineering channel. Covers Node.js, PostgreSQL, system design, protocols.",
+              "covers": "Covers: event loop internals, HTTP/2, WebSockets, DB fundamentals, connection pooling"
+            },
+            {
+              "name": "The Odin Project Node/Express",
+              "url": "https://www.theodinproject.com/paths/full-stack-javascript",
+              "type": "Course",
+              "desc": "Free project-based Node.js curriculum. Build a full app with auth.",
+              "covers": "Covers: Express, auth, SQL, deployment — with real projects"
+            },
+            {
+              "name": "Node.js Best Practices (GitHub)",
+              "url": "https://github.com/goldbergyoni/nodebestpractices",
+              "type": "Reference",
+              "desc": "Community-maintained free guide. 100+ best practices for production Node.js.",
+              "covers": "Covers: project structure, error handling, security, testing, deployment"
+            }
+          ],
+          "note": "The event loop is always asked in Node.js interviews. Be able to explain microtasks (Promises, queueMicrotask) vs macrotasks (setTimeout, setInterval) and why nextTick runs first."
+        },
+        {
+          "name": "Spring Boot",
+          "status": "have",
+          "priority": 2,
+          "why": "Your Java resume targets backend roles. Spring Boot mastery is the primary differentiator for those roles.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Spring IoC container:</strong> ApplicationContext, @Bean, @Component, @Service, @Repository, @Controller",
+                "<strong>Dependency injection:</strong> constructor injection (preferred), @Autowired, @Qualifier",
+                "<strong>REST controller:</strong> @RestController, @GetMapping, @PostMapping, @RequestBody, @PathVariable, @RequestParam",
+                "<strong>Spring Data JPA:</strong> @Entity, @Id, @GeneratedValue, JpaRepository, custom queries with @Query",
+                "<strong>application.properties/yml:</strong> datasource, server port, profiles (dev/prod)",
+                "<strong>Spring Boot DevTools:</strong> live reload during development",
+                "<strong>Running and packaging:</strong> mvn spring-boot:run, mvn package, executable JAR"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Spring Security:</strong> SecurityFilterChain, JWT filter, UserDetailsService, RBAC with @PreAuthorize",
+                "<strong>Exception handling:</strong> @ControllerAdvice, @ExceptionHandler, ProblemDetail (RFC 7807)",
+                "<strong>Spring Boot Actuator:</strong> health, metrics, info endpoints — used in production monitoring",
+                "<strong>Database migrations:</strong> Flyway or Liquibase — never change schema manually in production",
+                "<strong>Spring Batch (key for your Java resume):</strong> Job, Step, ItemReader, ItemProcessor, ItemWriter — ETL pattern",
+                "<strong>Validation:</strong> @Valid, @NotNull, @Size, custom validators with ConstraintValidator",
+                "<strong>Caching:</strong> @Cacheable, @CacheEvict with Spring Cache + Redis backend",
+                "<strong>Testing:</strong> @SpringBootTest, @WebMvcTest, MockMvc, @DataJpaTest, Testcontainers"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Spring WebFlux:</strong> reactive programming with Project Reactor, Mono/Flux, R2DBC",
+                "<strong>Spring Cloud:</strong> Config Server, Eureka service discovery, Spring Cloud Gateway",
+                "<strong>Kafka with Spring:</strong> @KafkaListener, KafkaTemplate — address your resume's Kafka claim",
+                "<strong>Spring Native:</strong> GraalVM native images for fast startup",
+                "<strong>Observability:</strong> Micrometer, Prometheus metrics, structured logging with Logback"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Spring Official Guides",
+              "url": "https://spring.io/guides",
+              "type": "Course",
+              "desc": "Official free guides — each guide builds a complete working feature in 15-30 minutes.",
+              "covers": "Covers: every Spring feature with minimal working examples"
+            },
+            {
+              "name": "Baeldung Spring Tutorials",
+              "url": "https://www.baeldung.com/spring-tutorial",
+              "type": "Reference",
+              "desc": "Most comprehensive free Spring reference. Every Spring topic covered in depth.",
+              "covers": "Covers: Spring Security, Spring Data JPA, Spring Batch, Spring Cloud, testing"
+            },
+            {
+              "name": "Amigoscode Spring Boot (YouTube)",
+              "url": "https://www.youtube.com/watch?v=9SGDpanrc8U",
+              "type": "YouTube",
+              "desc": "Free 3-hour Spring Boot full course. Builds a full REST API with PostgreSQL.",
+              "covers": "Covers: REST controllers, JPA, security, Docker — complete project"
+            },
+            {
+              "name": "Spring Framework Reference",
+              "url": "https://docs.spring.io/spring-framework/reference/",
+              "type": "Docs",
+              "desc": "Complete official documentation. Free.",
+              "covers": "Covers: IoC container, AOP, data access, web servlet, reactive — everything"
+            },
+            {
+              "name": "Spring Batch Reference Docs",
+              "url": "https://docs.spring.io/spring-batch/docs/current/reference/html/",
+              "type": "Docs",
+              "desc": "Official Spring Batch docs — essential for your Java/ETL resume.",
+              "covers": "Covers: job configuration, readers/writers/processors, partitioning, retry"
+            }
+          ],
+          "note": "URGENT: Your Java resume lists Kafka but no project demonstrates it. Either add a Spring Kafka demo project or remove it. Study Spring Batch too — it directly addresses the ETL role you applied for."
+        },
+        {
+          "name": "Kafka (address Java resume gap)",
+          "status": "need",
+          "priority": 1,
+          "why": "Kafka is listed on your Java resume but has no supporting project. This is a credibility risk that interviewers will probe.",
+          "levels": [
+            {
+              "label": "beginner — understand the concepts",
+              "topics": [
+                "<strong>Why Kafka:</strong> event streaming vs messaging, log-based architecture, offset management",
+                "<strong>Core concepts:</strong> broker, topic, partition, offset, consumer group, producer",
+                "<strong>How messages flow:</strong> producer → broker → partition → consumer — draw this from memory",
+                "<strong>Kafka vs RabbitMQ vs SQS:</strong> know the trade-offs for interviews",
+                "<strong>At-least-once vs exactly-once delivery:</strong> understand idempotency"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Spring Kafka:</strong> @KafkaListener, @EnableKafka, KafkaTemplate, ConsumerRecord, ProducerRecord",
+                "<strong>Serialization:</strong> StringSerializer, JsonSerializer, Avro + Schema Registry",
+                "<strong>Consumer group rebalancing:</strong> what happens when a consumer joins/leaves",
+                "<strong>Offset management:</strong> auto-commit vs manual commit, earliest vs latest offset",
+                "<strong>Error handling:</strong> dead letter topics, retry with backoff, @RetryableTopic",
+                "<strong>Build something:</strong> event-driven order processing, real-time notifications, or audit log"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Kafka Streams:</strong> stateful stream processing, joins, windowing",
+                "<strong>Transactions:</strong> exactly-once semantics in producer and consumer",
+                "<strong>Kafka Connect:</strong> source/sink connectors for databases",
+                "<strong>Topic partitioning strategy:</strong> partition keys, ordering guarantees"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Apache Kafka Official Docs",
+              "url": "https://kafka.apache.org/documentation/",
+              "type": "Docs",
+              "desc": "Free complete reference. Start with the 'Introduction' section.",
+              "covers": "Covers: every Kafka concept in detail"
+            },
+            {
+              "name": "Confluent Kafka Tutorials (free)",
+              "url": "https://developer.confluent.io/tutorials/",
+              "type": "Course",
+              "desc": "Confluent's free interactive tutorials. Hands-on with a real Kafka cluster.",
+              "covers": "Covers: producer/consumer, Kafka Streams, Connect, Schema Registry"
+            },
+            {
+              "name": "Spring Kafka Reference Docs",
+              "url": "https://docs.spring.io/spring-kafka/docs/current/reference/html/",
+              "type": "Docs",
+              "desc": "Official Spring Kafka docs — everything you need to build with it.",
+              "covers": "Covers: listeners, templates, error handling, transactions"
+            },
+            {
+              "name": "TechWorld with Nana Kafka (YouTube)",
+              "url": "https://www.youtube.com/watch?v=SqVfCyfCJqw",
+              "type": "YouTube",
+              "desc": "Free 1-hour Kafka crash course. Great conceptual introduction.",
+              "covers": "Covers: topics, partitions, consumer groups, use cases"
+            }
+          ],
+          "note": "ACTION REQUIRED: Build a small Spring Boot + Kafka demo. Minimum: a producer that sends events (e.g. 'job application created') and a consumer that processes them. Add it to GitHub and put it on your Java resume. This turns a liability into a strength."
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "label": "Databases",
+      "skills": [
+        {
+          "name": "PostgreSQL (deep)",
+          "status": "have",
+          "priority": 1,
+          "why": "PostgreSQL is your primary database. Interview questions go beyond basic CRUD into performance and design.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Setup:</strong> install locally or use Neon (you use this), psql CLI commands",
+                "<strong>Data types:</strong> integer, bigint, text, varchar, boolean, timestamp, uuid, jsonb, array",
+                "<strong>Constraints:</strong> PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CHECK, DEFAULT",
+                "<strong>Relationships:</strong> one-to-one, one-to-many, many-to-many with junction tables",
+                "<strong>Prisma ORM (you use this):</strong> schema.prisma, relations, migrations, Prisma Client queries"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Indexes deep dive:</strong> B-tree (default), Hash, GIN (jsonb, arrays), GiST, BRIN — when to use each",
+                "<strong>EXPLAIN ANALYZE:</strong> Seq Scan vs Index Scan vs Index Only Scan vs Bitmap Heap Scan",
+                "<strong>Composite indexes:</strong> column order matters — leftmost prefix rule",
+                "<strong>Partial indexes:</strong> WHERE clause in index — index only active users for example",
+                "<strong>N+1 problem:</strong> what it is, how Prisma include/select prevents it",
+                "<strong>Connection pooling:</strong> why databases max out connections, PgBouncer, Neon's pooler",
+                "<strong>VACUUM and AUTOVACUUM:</strong> dead tuples, bloat, why PostgreSQL needs this"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Row-level security (RLS):</strong> ALTER TABLE ENABLE ROW LEVEL SECURITY, CREATE POLICY — for multi-tenant SaaS",
+                "<strong>pgvector extension:</strong> vector similarity search for AI/RAG — you use Neon which supports this",
+                "<strong>Partitioning:</strong> range partitioning by date, list partitioning by region",
+                "<strong>Logical replication:</strong> publication/subscription — for read replicas",
+                "<strong>Full-text search:</strong> tsvector, tsquery, to_tsvector, GIN index on tsvector column"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "PostgreSQL Official Docs",
+              "url": "https://www.postgresql.org/docs/current/",
+              "type": "Docs",
+              "desc": "The complete reference. Bookmark the index types page and window functions page.",
+              "covers": "Covers: every feature, data type, function, configuration"
+            },
+            {
+              "name": "pgexercises.com",
+              "url": "https://pgexercises.com",
+              "type": "Practice",
+              "desc": "Free PostgreSQL exercises in your browser. Covers all SQL levels.",
+              "covers": "Covers: basic queries through window functions and recursive CTEs"
+            },
+            {
+              "name": "Hussein Nasser PostgreSQL Playlist",
+              "url": "https://www.youtube.com/playlist?list=PLQnljOFTspQXjD0HOzN7P2tgzu7scWpl2",
+              "type": "YouTube",
+              "desc": "Free deep dives on PostgreSQL internals — MVCC, indexes, EXPLAIN.",
+              "covers": "Covers: how PostgreSQL works internally — essential for senior interviews"
+            },
+            {
+              "name": "Prisma Official Docs",
+              "url": "https://www.prisma.io/docs",
+              "type": "Docs",
+              "desc": "Complete free Prisma reference.",
+              "covers": "Covers: schema modeling, relations, migrations, raw queries, performance"
+            },
+            {
+              "name": "pgvector GitHub README",
+              "url": "https://github.com/pgvector/pgvector",
+              "type": "Reference",
+              "desc": "Free guide to adding vector search to PostgreSQL — needed for AI/RAG features.",
+              "covers": "Covers: setup, indexing, similarity queries, integration with Neon"
+            }
+          ]
+        },
+        {
+          "name": "MongoDB",
+          "status": "have",
+          "priority": 2,
+          "why": "MongoDB is used in DailyHabitz. Know it well enough to explain schema design decisions.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Document model:</strong> collections, documents, BSON, _id field",
+                "<strong>CRUD:</strong> insertOne/Many, findOne/find, updateOne/Many with $set/$inc/$push, deleteOne/Many",
+                "<strong>Query operators:</strong> $eq, $ne, $gt, $lt, $in, $nin, $and, $or, $not, $exists, $regex",
+                "<strong>Mongoose:</strong> Schema, Model, virtual fields, timestamps, validation, middleware hooks"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Aggregation pipeline:</strong> $match, $group, $project, $sort, $limit, $skip, $lookup (join), $unwind, $addFields",
+                "<strong>Indexes in MongoDB:</strong> createIndex, compound indexes, text indexes, TTL indexes",
+                "<strong>Schema design:</strong> embedding (1-to-few) vs referencing (1-to-many or many-to-many)",
+                "<strong>Pagination:</strong> skip/limit vs cursor-based pagination",
+                "<strong>Atlas free tier:</strong> M0 cluster, Atlas Search, connection URI with SRV"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Transactions:</strong> multi-document ACID, startSession, withTransaction",
+                "<strong>Change streams:</strong> watch() for real-time data change events",
+                "<strong>Atlas Search:</strong> full-text search with fuzzy matching, autocomplete",
+                "<strong>Sharding concepts:</strong> shard key selection, range vs hash sharding"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "MongoDB University (completely free)",
+              "url": "https://learn.mongodb.com",
+              "type": "Course",
+              "desc": "Official free courses from MongoDB with certificates. Best structured learning.",
+              "covers": "Covers: CRUD, aggregation, indexes, schema design, Atlas — multiple free courses"
+            },
+            {
+              "name": "Mongoose Docs",
+              "url": "https://mongoosejs.com/docs/",
+              "type": "Docs",
+              "desc": "Complete free Mongoose reference.",
+              "covers": "Covers: schemas, validation, middleware, population, aggregation"
+            },
+            {
+              "name": "MongoDB Manual",
+              "url": "https://www.mongodb.com/docs/manual/",
+              "type": "Docs",
+              "desc": "Complete official MongoDB reference.",
+              "covers": "Covers: every operator, index type, aggregation stage in detail"
+            }
+          ]
+        },
+        {
+          "name": "Redis",
+          "status": "need",
+          "priority": 1,
+          "hot": true,
+          "why": "Redis appears in a huge percentage of backend job descriptions. Rate limiting, caching, and session management are all common interview topics.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>What Redis is:</strong> in-memory data store, not a primary DB, persistence options",
+                "<strong>String commands:</strong> SET key value EX seconds, GET key, DEL key, EXISTS key, INCR key",
+                "<strong>Key expiry:</strong> EXPIRE, TTL, PERSIST — how Redis handles time-to-live",
+                "<strong>List commands:</strong> LPUSH, RPUSH, LPOP, RPOP, LRANGE — use as queue or stack",
+                "<strong>Hash commands:</strong> HSET, HGET, HGETALL, HDEL — like a nested object",
+                "<strong>Set commands:</strong> SADD, SMEMBERS, SISMEMBER, SUNION, SINTER",
+                "<strong>Sorted set commands:</strong> ZADD, ZRANGE, ZRANK, ZSCORE — leaderboards, rate limiting",
+                "<strong>Upstash setup:</strong> create free serverless Redis, get connection URL, use @upstash/redis in Next.js"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Cache-aside pattern:</strong> check Redis → if miss, query DB → store in Redis → return",
+                "<strong>Rate limiting with Redis:</strong> INCR + EXPIRE pattern, sliding window with sorted sets",
+                "<strong>Session storage:</strong> store JWT sessions, token blocklist for logout",
+                "<strong>Pub/Sub:</strong> SUBSCRIBE channel, PUBLISH channel message — real-time messaging",
+                "<strong>MULTI/EXEC transactions:</strong> atomic operations",
+                "<strong>Connection management:</strong> ioredis vs @upstash/redis — when to use each",
+                "<strong>Cache invalidation:</strong> the hard problem — strategies: TTL, write-through, event-driven"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Redis Streams:</strong> XADD, XREAD, XREADGROUP — persistent message queue (Kafka-lite)",
+                "<strong>Lua scripting:</strong> EVAL for atomic multi-step operations",
+                "<strong>Redis Cluster:</strong> horizontal sharding, hash slots",
+                "<strong>Redis persistence:</strong> RDB snapshots vs AOF append-only file",
+                "<strong>Redis with BullMQ:</strong> job queue library on top of Redis — background job processing"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Redis University (free courses + free certification)",
+              "url": "https://university.redis.com",
+              "type": "Course",
+              "desc": "All courses AND certification are completely free. Best structured Redis learning.",
+              "covers": "Covers: RU101 data structures, RU102 streams, RU203 search — all free"
+            },
+            {
+              "name": "Redis Official Docs with Interactive Tutorials",
+              "url": "https://redis.io/docs/",
+              "type": "Docs",
+              "desc": "Documentation includes interactive sandbox to run Redis commands in browser.",
+              "covers": "Covers: every command, pattern, and configuration option"
+            },
+            {
+              "name": "Upstash Docs",
+              "url": "https://upstash.com/docs/redis/overall/getstarted",
+              "type": "Docs",
+              "desc": "Serverless Redis that works with Vercel/Next.js. Free tier is generous.",
+              "covers": "Covers: setup, @upstash/redis SDK, rate limiting examples"
+            },
+            {
+              "name": "BullMQ Docs",
+              "url": "https://docs.bullmq.io",
+              "type": "Docs",
+              "desc": "Job queue library on Redis. Free. Useful for background jobs in Node.js.",
+              "covers": "Covers: queues, workers, schedulers, rate limiting jobs"
+            }
+          ],
+          "cert": {
+            "name": "Redis Certified Developer — completely free exam",
+            "desc": "Complete RU101 on Redis University (free), then take the certification attempt (also free). Adds real credibility to your backend resume. Do this after adding Redis to one project."
+          }
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "label": "Cloud & DevOps",
+      "skills": [
+        {
+          "name": "AWS",
+          "status": "have",
+          "priority": 1,
+          "hot": true,
+          "why": "You already deploy on AWS. Go deeper on the services you use and understand enough to speak to architecture decisions in interviews.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>IAM:</strong> users, groups, roles, policies — principle of least privilege, never use root",
+                "<strong>EC2:</strong> instance types, AMIs, key pairs, security groups (stateful firewall), elastic IPs",
+                "<strong>S3:</strong> buckets, objects, storage classes, presigned URLs, bucket policies, CORS",
+                "<strong>RDS:</strong> managed PostgreSQL, parameter groups, automated backups, read replicas, Multi-AZ",
+                "<strong>VPC basics:</strong> subnets (public vs private), route tables, internet gateway, NAT gateway"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>CloudFront:</strong> distributions, origins, cache behaviors, invalidations, Lambda@Edge",
+                "<strong>Cognito:</strong> user pools vs identity pools, hosted UI, JWT tokens, app clients",
+                "<strong>Lambda:</strong> function creation, triggers (API Gateway, S3, SQS), cold starts, memory vs duration",
+                "<strong>API Gateway:</strong> REST API vs HTTP API, integration with Lambda, CORS configuration",
+                "<strong>SQS and SNS:</strong> queue vs topic, fan-out pattern, dead letter queues",
+                "<strong>ECS Fargate:</strong> running Docker containers without managing EC2 servers",
+                "<strong>CloudWatch:</strong> logs, metrics, alarms, log groups, insights queries"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>CDK (Cloud Development Kit):</strong> define AWS infra with TypeScript — better than clicking console",
+                "<strong>Well-Architected Framework:</strong> 6 pillars — operational excellence, security, reliability, performance, cost, sustainability",
+                "<strong>Cost optimization:</strong> Reserved Instances, Savings Plans, Spot instances, right-sizing",
+                "<strong>Multi-region:</strong> Route53 health checks, failover routing, data residency considerations"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "AWS Free Tier (use it)",
+              "url": "https://aws.amazon.com/free/",
+              "type": "Tool",
+              "desc": "Always on free tier: EC2 t2.micro, S3 5GB, RDS db.t2.micro 20GB, Lambda 1M requests/mo.",
+              "covers": "Deploy every project here. Hands-on practice is irreplaceable."
+            },
+            {
+              "name": "freeCodeCamp AWS Cloud Practitioner (YouTube)",
+              "url": "https://www.youtube.com/watch?v=NhDYbskXRgc",
+              "type": "YouTube",
+              "desc": "Free 14-hour comprehensive AWS course covering all exam domains.",
+              "covers": "Covers: every AWS service category — compute, storage, database, networking, security"
+            },
+            {
+              "name": "AWS Skill Builder (free courses)",
+              "url": "https://skillbuilder.aws",
+              "type": "Course",
+              "desc": "Official AWS training platform. Many courses are free with just an email.",
+              "covers": "Covers: AWS Cloud Practitioner prep, service-specific deep dives"
+            },
+            {
+              "name": "Cloud Quest (free game on Skill Builder)",
+              "url": "https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner",
+              "type": "Course",
+              "desc": "Free AWS learning game. Build real cloud solutions in a simulated environment.",
+              "covers": "Covers: EC2, S3, RDS, VPC through hands-on missions"
+            }
+          ],
+          "cert": {
+            "name": "AWS Cloud Practitioner (CLF-C02) — $100, highest ROI cert for your resume",
+            "desc": "Study for free with freeCodeCamp YouTube + AWS Skill Builder. Take ~20 practice exams on Examtopics.com (free). Schedule when scoring 80%+ consistently. This cert appears on most job descriptions as 'nice to have' and signals real AWS commitment beyond just using it for projects."
+          }
+        },
+        {
+          "name": "Docker",
+          "status": "need",
+          "priority": 1,
+          "hot": true,
+          "why": "Docker is on nearly every job description and is the gateway to understanding containers, microservices, and Kubernetes. Not having it is an easy filter.",
+          "levels": [
+            {
+              "label": "beginner — start here this week",
+              "topics": [
+                "<strong>Why Docker:</strong> 'works on my machine' problem, containers vs VMs, image vs container",
+                "<strong>Docker architecture:</strong> Docker daemon, client, registry (Docker Hub), images, containers",
+                "<strong>Your first Dockerfile:</strong> FROM (base image), WORKDIR, COPY, RUN (build time), EXPOSE, CMD/ENTRYPOINT (run time)",
+                "<strong>Core commands:</strong> docker build -t name . | docker run -p 3000:3000 name | docker ps | docker stop | docker rm | docker logs",
+                "<strong>Port mapping:</strong> -p hostPort:containerPort — why this is needed",
+                "<strong>Environment variables:</strong> --env-file .env or -e KEY=value",
+                "<strong>Volumes:</strong> -v hostPath:containerPath — persist data, dev hot reload",
+                "<strong>Docker Hub:</strong> docker pull, docker push, public vs private registries"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Multi-stage builds:</strong> use node:alpine to build, then copy only dist/ to smaller final image — reduces image size 10x",
+                "<strong>Docker Compose:</strong> define multiple services (app + postgres + redis) in docker-compose.yml",
+                "<strong>Compose commands:</strong> docker compose up -d, down, logs, exec, ps",
+                "<strong>Networking in Compose:</strong> service names as hostnames (your app talks to 'postgres' not 'localhost')",
+                "<strong>Health checks:</strong> HEALTHCHECK in Dockerfile, depends_on with condition in Compose",
+                "<strong>.dockerignore:</strong> exclude node_modules, .env, .git from build context",
+                "<strong>Non-root user:</strong> security best practice — don't run containers as root",
+                "<strong>Docker in GitHub Actions:</strong> build and push image as part of CI pipeline"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Docker with Next.js:</strong> standalone output mode (output: 'standalone' in next.config.js) for minimal images",
+                "<strong>Docker with Spring Boot:</strong> layered JARs, Jib plugin (no Dockerfile needed)",
+                "<strong>Container scanning:</strong> docker scout, trivy — vulnerability scanning images",
+                "<strong>Buildx:</strong> multi-platform builds (amd64 + arm64)",
+                "<strong>Kubernetes concepts from Docker:</strong> pods = containers, deployments, services, ingress"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Docker Official Docs + Get Started Tutorial",
+              "url": "https://docs.docker.com/get-started/",
+              "type": "Docs",
+              "desc": "Official free tutorial. Walks from installation to multi-container Compose apps.",
+              "covers": "Covers: Dockerfile, docker run, Compose, networking, volumes — step by step"
+            },
+            {
+              "name": "TechWorld with Nana — Docker Full Course (YouTube)",
+              "url": "https://www.youtube.com/watch?v=3c-iBn73dDE",
+              "type": "YouTube",
+              "desc": "Free 3-hour course. Most recommended Docker intro on YouTube. Very clear.",
+              "covers": "Covers: containers, images, Dockerfile, Compose, networking, volumes"
+            },
+            {
+              "name": "Play with Docker (free online lab)",
+              "url": "https://labs.play-with-docker.com",
+              "type": "Tool",
+              "desc": "Free browser-based Docker environment. No installation needed. 4-hour sessions.",
+              "covers": "Covers: practice all Docker commands without installing anything"
+            },
+            {
+              "name": "freeCodeCamp Docker + Kubernetes (YouTube)",
+              "url": "https://www.youtube.com/watch?v=9zUHg7xjIqQ",
+              "type": "YouTube",
+              "desc": "Free comprehensive course covering Docker through Kubernetes.",
+              "covers": "Covers: Docker fundamentals, Compose, then Kubernetes concepts"
+            }
+          ],
+          "note": "Task this week: Dockerize DailyHabitz or ApplyVibe. Write Dockerfile for Next.js app + docker-compose.yml with the database. Push to GitHub. Update resume. This single action removes the biggest gap on your profile."
+        },
+        {
+          "name": "GitHub Actions / CI-CD",
+          "status": "have",
+          "priority": 1,
+          "why": "You already use GitHub Actions. Go deeper to be able to design complete pipelines in interviews.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Workflow YAML structure:</strong> name, on, jobs, steps — understand every key",
+                "<strong>Triggers:</strong> push, pull_request, workflow_dispatch, schedule (cron)",
+                "<strong>Runners:</strong> ubuntu-latest, windows-latest, macos-latest, self-hosted",
+                "<strong>Steps:</strong> uses (actions), run (shell commands), with (inputs), env",
+                "<strong>Common actions:</strong> actions/checkout@v4, actions/setup-node@v4, actions/setup-java@v4",
+                "<strong>Secrets:</strong> Settings → Secrets, reference as ${{ secrets.SECRET_NAME }}"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Job dependencies:</strong> needs: [job1, job2] — run jobs sequentially or in parallel",
+                "<strong>Matrix builds:</strong> test on Node 18, 20, 22 simultaneously",
+                "<strong>Caching:</strong> actions/cache for node_modules, .m2 Maven cache — speeds up pipelines",
+                "<strong>Artifacts:</strong> actions/upload-artifact, download-artifact — pass files between jobs",
+                "<strong>Environments:</strong> staging, production environments with required reviewers",
+                "<strong>Deploy to Vercel from Actions:</strong> vercel CLI in workflow or use Vercel GitHub integration",
+                "<strong>Deploy to AWS from Actions:</strong> configure-aws-credentials action with OIDC (no long-lived keys)",
+                "<strong>Docker in Actions:</strong> build image, push to ECR or Docker Hub"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Reusable workflows:</strong> workflow_call trigger, pass inputs — avoid duplication across repos",
+                "<strong>Composite actions:</strong> create your own custom actions in JavaScript or shell",
+                "<strong>OIDC authentication:</strong> passwordless AWS access from GitHub Actions — no AWS keys in secrets",
+                "<strong>Semantic release:</strong> automate versioning and changelog from commit messages"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "GitHub Actions Official Docs",
+              "url": "https://docs.github.com/en/actions",
+              "type": "Docs",
+              "desc": "Complete free reference. The 'Understanding GitHub Actions' page is essential.",
+              "covers": "Covers: every workflow keyword, context variables, environment protection"
+            },
+            {
+              "name": "TechWorld with Nana CI/CD (YouTube)",
+              "url": "https://www.youtube.com/watch?v=R8_veQiYBjI",
+              "type": "YouTube",
+              "desc": "Free 2-hour GitHub Actions crash course.",
+              "covers": "Covers: workflows, secrets, Docker integration, deployment pipelines"
+            }
+          ]
+        },
+        {
+          "name": "Terraform",
+          "status": "need",
+          "priority": 2,
+          "why": "IaC knowledge shows you understand production infrastructure. Appears on many backend/DevOps-adjacent JDs.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Why IaC:</strong> reproducible infrastructure, version controlled, no manual clicking",
+                "<strong>HCL syntax:</strong> resource blocks, variable blocks, output blocks, locals",
+                "<strong>Providers:</strong> hashicorp/aws provider, provider configuration, authentication",
+                "<strong>Core commands:</strong> terraform init, terraform plan, terraform apply, terraform destroy",
+                "<strong>State file:</strong> terraform.tfstate — what it contains, why you should not edit it manually",
+                "<strong>First resource:</strong> write Terraform to create an S3 bucket and EC2 instance"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Variables:</strong> variable blocks, tfvars files, sensitive = true, validation rules",
+                "<strong>Outputs:</strong> output blocks — expose resource attributes for use elsewhere",
+                "<strong>Modules:</strong> reusable infrastructure components, module sources, input/output",
+                "<strong>Remote state:</strong> S3 backend + DynamoDB locking — never use local state in production",
+                "<strong>Data sources:</strong> look up existing AWS resources not managed by this Terraform",
+                "<strong>Reproduce your AWS project:</strong> write Terraform for your EC2 + RDS + S3 + CloudFront setup"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Workspaces:</strong> dev/staging/prod — separate state per environment",
+                "<strong>Terraform Cloud free tier:</strong> remote state, variable sets, remote runs",
+                "<strong>Import:</strong> import existing manually-created resources into Terraform state",
+                "<strong>Testing:</strong> terraform validate, tflint, terratest for integration testing"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "HashiCorp Learn — Terraform (free official tutorials)",
+              "url": "https://developer.hashicorp.com/terraform/tutorials",
+              "type": "Course",
+              "desc": "Official free tutorials. Structured paths for AWS, Azure, GCP.",
+              "covers": "Covers: every Terraform concept with hands-on labs using real AWS"
+            },
+            {
+              "name": "freeCodeCamp Terraform + AWS (YouTube)",
+              "url": "https://www.youtube.com/watch?v=SLB_c_ayRMo",
+              "type": "YouTube",
+              "desc": "Free 2.5-hour Terraform course focused on AWS.",
+              "covers": "Covers: HCL syntax, AWS provider, state, modules — complete beginner course"
+            },
+            {
+              "name": "Terraform Official Docs",
+              "url": "https://developer.hashicorp.com/terraform/docs",
+              "type": "Docs",
+              "desc": "Complete free reference for all Terraform features.",
+              "covers": "Covers: every configuration block, provider docs, state management"
+            }
+          ],
+          "cert": {
+            "name": "HashiCorp Terraform Associate (003) — $70 exam, optional",
+            "desc": "Study for free with HashiCorp Learn tutorials. Good for backend/DevOps-adjacent roles. Lower priority than AWS cert. Take it once you've written real Terraform for your projects."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "label": "AI / LLM",
+      "skills": [
+        {
+          "name": "LLM API Integration",
+          "status": "need",
+          "priority": 1,
+          "hot": true,
+          "why": "AI integration is the #1 differentiator in the 2026 job market. A single shipped AI feature puts you ahead of 80% of candidates.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>How LLMs work conceptually:</strong> next-token prediction, context window, temperature, top_p",
+                "<strong>OpenAI API basics:</strong> /v1/chat/completions endpoint, model names, messages array (system/user/assistant roles)",
+                "<strong>Anthropic Claude API:</strong> same concepts, messages format, system prompt as separate field",
+                "<strong>API keys:</strong> environment variables, never expose in frontend code, use server-side proxy",
+                "<strong>Basic request:</strong> model, max_tokens, messages — handle response and display",
+                "<strong>Error handling:</strong> rate limit errors (429), context length errors, timeout handling"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Streaming responses:</strong> stream: true — display tokens as they arrive in Next.js with ReadableStream",
+                "<strong>Vercel AI SDK:</strong> useChat hook, streamText, generateText — cleanest way to add AI to Next.js",
+                "<strong>System prompts:</strong> define AI persona, constrain outputs, inject context",
+                "<strong>Structured outputs:</strong> JSON mode, response_format: {type: 'json_object'}, Zod parsing",
+                "<strong>Function calling / Tool use:</strong> define tools the LLM can call, parse tool_use responses",
+                "<strong>Token counting and cost:</strong> understand pricing, estimate costs before production",
+                "<strong>Model selection:</strong> GPT-4o vs GPT-4o-mini vs Claude Sonnet vs Haiku — cost/quality trade-off",
+                "<strong>Context window management:</strong> truncate history, sliding window, summary compression"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>RAG (Retrieval-Augmented Generation):</strong> embed documents, store in vector DB, retrieve relevant chunks, inject into prompt",
+                "<strong>Agentic systems:</strong> LLM that calls tools in a loop to complete a task",
+                "<strong>LangChain/LangGraph:</strong> orchestration framework for multi-step LLM workflows",
+                "<strong>Evaluations:</strong> automated testing of LLM outputs, reference-based vs model-based evals",
+                "<strong>Fine-tuning concepts:</strong> when it's needed (rare), how it differs from RAG",
+                "<strong>MCP (Model Context Protocol):</strong> emerging standard for LLM tool integration"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Vercel AI SDK Docs",
+              "url": "https://sdk.vercel.ai/docs",
+              "type": "Docs",
+              "desc": "Best way to integrate AI into Next.js. Free docs, clean abstractions.",
+              "covers": "Covers: useChat, streamText, tool calling, providers (OpenAI, Anthropic, etc.)"
+            },
+            {
+              "name": "DeepLearning.AI Free Short Courses",
+              "url": "https://www.deeplearning.ai/short-courses/",
+              "type": "Course",
+              "desc": "Free short courses with Andrew Ng. Each is 1-2 hours.",
+              "covers": "Covers: ChatGPT API (free), LangChain (free), RAG (free), Evals (free), Agents (free)"
+            },
+            {
+              "name": "OpenAI API Docs",
+              "url": "https://platform.openai.com/docs",
+              "type": "Docs",
+              "desc": "Complete API reference. Free to read, small credit to experiment.",
+              "covers": "Covers: completions, streaming, function calling, embeddings, fine-tuning"
+            },
+            {
+              "name": "Anthropic API Docs",
+              "url": "https://docs.anthropic.com",
+              "type": "Docs",
+              "desc": "Claude API documentation — well written, excellent tool use docs.",
+              "covers": "Covers: messages API, streaming, tool use, vision, prompt engineering"
+            },
+            {
+              "name": "OpenAI Cookbook (GitHub, free)",
+              "url": "https://github.com/openai/openai-cookbook",
+              "type": "Reference",
+              "desc": "Free collection of code examples for every OpenAI API use case.",
+              "covers": "Covers: RAG, function calling, embeddings, streaming — working code examples"
+            }
+          ],
+          "note": "BUILD THIS NOW: Add a JD analyzer to ApplyVibe — paste a job description, AI scores your resume fit and suggests what to highlight. Uses Next.js API route + Vercel AI SDK + Claude/OpenAI. 1-2 day build. This becomes your headline project."
+        },
+        {
+          "name": "RAG Systems",
+          "status": "need",
+          "priority": 2,
+          "hot": true,
+          "why": "RAG is how you make LLMs useful with your own data. It's the most practical AI engineering skill companies need.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Why RAG:</strong> LLMs have a knowledge cutoff, can hallucinate — RAG grounds them in real data",
+                "<strong>The RAG pipeline:</strong> Load documents → Chunk → Embed → Store in vector DB → Query → Retrieve → Augment prompt → Generate",
+                "<strong>Embeddings:</strong> text → vector of numbers that captures meaning, similar text = similar vectors",
+                "<strong>OpenAI embeddings API:</strong> text-embedding-3-small model, 1536 dimensions",
+                "<strong>Cosine similarity:</strong> how vector databases find the most similar chunks",
+                "<strong>Simple RAG in JavaScript:</strong> embed docs, store in array, find closest match, inject into prompt"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Vector databases:</strong> pgvector (PostgreSQL extension — free, works with your Neon DB), Pinecone free tier",
+                "<strong>Chunking strategies:</strong> fixed size (500 tokens), recursive character splitting, semantic chunking",
+                "<strong>Metadata filtering:</strong> filter by source, date, user_id before vector search",
+                "<strong>Hybrid search:</strong> combine keyword search (BM25) + vector search for better recall",
+                "<strong>Retrieval evaluation:</strong> are we retrieving the right chunks? precision and recall",
+                "<strong>LangChain RAG:</strong> DocumentLoader, TextSplitter, Embeddings, VectorStore, RetrievalQA chain"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Advanced retrieval:</strong> HyDE (Hypothetical Document Embeddings), multi-query retrieval",
+                "<strong>Re-ranking:</strong> use a cross-encoder to re-score retrieved chunks",
+                "<strong>Self-querying retriever:</strong> LLM generates the vector DB filter from natural language",
+                "<strong>Production RAG:</strong> caching embeddings, async embedding pipelines, monitoring retrieval quality"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "DeepLearning.AI — Building RAG with LangChain (free)",
+              "url": "https://www.deeplearning.ai/short-courses/building-and-evaluating-advanced-rag/",
+              "type": "Course",
+              "desc": "Free 1-hour course. Best structured intro to RAG.",
+              "covers": "Covers: chunking, embeddings, vector stores, advanced retrieval, evaluation"
+            },
+            {
+              "name": "pgvector GitHub + Docs",
+              "url": "https://github.com/pgvector/pgvector",
+              "type": "Reference",
+              "desc": "Add vector search to your existing Neon PostgreSQL. Free.",
+              "covers": "Covers: installation, creating vector columns, IVFFlat index, similarity queries"
+            },
+            {
+              "name": "LangChain JS Docs",
+              "url": "https://js.langchain.com/docs/",
+              "type": "Docs",
+              "desc": "LangChain for JavaScript/TypeScript — use in your Next.js projects.",
+              "covers": "Covers: document loaders, text splitters, embeddings, vector stores, chains"
+            }
+          ],
+          "note": "Use pgvector with your existing Neon database — no new services needed. Add document/note search to ApplyVibe and you have a working RAG demo."
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "label": "Testing",
+      "skills": [
+        {
+          "name": "Jest + React Testing Library",
+          "status": "have",
+          "priority": 2,
+          "why": "Testing is asked in virtually every technical interview. Being able to write good tests signals production maturity.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Test structure:</strong> describe() for grouping, it()/test() for cases, beforeEach/afterEach for setup/teardown",
+                "<strong>Matchers:</strong> toBe, toEqual (deep), toBeTruthy, toBeFalsy, toBeNull, toContain, toHaveLength, toThrow",
+                "<strong>Async tests:</strong> async/await in tests, resolves/rejects matchers",
+                "<strong>React Testing Library:</strong> render(), screen.getByRole(), screen.getByText(), screen.getByTestId()",
+                "<strong>Queries:</strong> getBy (throws if not found), queryBy (returns null), findBy (async wait)",
+                "<strong>User interactions:</strong> userEvent.click(), userEvent.type(), userEvent.clear()",
+                "<strong>What to test:</strong> user behavior, not implementation — don't test internal state"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Mocking:</strong> jest.fn() for functions, jest.mock('module') for modules, jest.spyOn(obj, 'method')",
+                "<strong>Mock implementations:</strong> mockReturnValue, mockResolvedValue, mockRejectedValue",
+                "<strong>MSW (Mock Service Worker):</strong> intercept API calls at network level — better than mocking fetch",
+                "<strong>Testing hooks:</strong> renderHook() from React Testing Library",
+                "<strong>Testing with context:</strong> wrap render() in custom wrapper with providers",
+                "<strong>waitFor:</strong> wait for async updates, assertions inside waitFor",
+                "<strong>Coverage:</strong> jest --coverage, understand what to aim for vs what's waste"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Integration tests:</strong> test entire feature flows, realistic data",
+                "<strong>Testing Zustand/Redux:</strong> test store actions and selectors independently",
+                "<strong>Snapshot testing:</strong> when it helps (stable UI) vs when it hurts (brittle noise)",
+                "<strong>Performance testing:</strong> React profiler in tests"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Jest Official Docs",
+              "url": "https://jestjs.io/docs/getting-started",
+              "type": "Docs",
+              "desc": "Complete free reference. The 'Expect' API page is your most-used reference.",
+              "covers": "Covers: all matchers, mocking APIs, configuration, coverage"
+            },
+            {
+              "name": "Testing Library Docs + Guiding Principles",
+              "url": "https://testing-library.com/docs/react-testing-library/intro/",
+              "type": "Docs",
+              "desc": "Read the Guiding Principles page first — it changes how you think about testing.",
+              "covers": "Covers: queries, user-event, async utilities, accessibility-first testing"
+            },
+            {
+              "name": "Kent C. Dodds Testing Blog Posts (free)",
+              "url": "https://kentcdodds.com/blog?q=testing",
+              "type": "Blog",
+              "desc": "The creator of React Testing Library. Free blog posts on testing philosophy and practice.",
+              "covers": "Covers: avoid implementation details, common mistakes, integration testing strategies"
+            },
+            {
+              "name": "MSW (Mock Service Worker) Docs",
+              "url": "https://mswjs.io/docs/",
+              "type": "Docs",
+              "desc": "The modern way to mock APIs in tests. Free.",
+              "covers": "Covers: request handlers, REST handlers, integration with Jest and Playwright"
+            }
+          ]
+        },
+        {
+          "name": "Playwright",
+          "status": "have",
+          "priority": 2,
+          "why": "Playwright is in your Ghumakkad project. Add it to your skills section now — it's a real differentiator since most candidates only know unit testing.",
+          "levels": [
+            {
+              "label": "beginner",
+              "topics": [
+                "<strong>Setup:</strong> npx playwright install, playwright.config.ts, test runner",
+                "<strong>Core commands:</strong> page.goto(url), page.click(selector), page.fill(selector, value), page.waitForURL()",
+                "<strong>Locators (modern API):</strong> page.getByRole(), page.getByText(), page.getByLabel(), page.getByTestId()",
+                "<strong>Assertions:</strong> expect(page).toHaveURL(), expect(locator).toBeVisible(), toHaveText(), toHaveValue()",
+                "<strong>Test structure:</strong> test(), test.describe(), test.beforeEach() — same as Jest",
+                "<strong>Running tests:</strong> npx playwright test, --ui mode (interactive), --headed (see browser)"
+              ]
+            },
+            {
+              "label": "intermediate",
+              "topics": [
+                "<strong>Page Object Model:</strong> encapsulate page selectors and actions in a class — maintainable tests",
+                "<strong>API testing:</strong> request.get/post — test your API routes directly in Playwright",
+                "<strong>Network interception:</strong> page.route(url, handler) — mock API responses in E2E tests",
+                "<strong>Screenshots + videos:</strong> on failure, full page screenshots, video recording",
+                "<strong>Multi-browser:</strong> chromium, firefox, webkit — run same tests across all three",
+                "<strong>Authentication state:</strong> storageState to reuse logged-in sessions across tests"
+              ]
+            },
+            {
+              "label": "advanced",
+              "topics": [
+                "<strong>Playwright in GitHub Actions:</strong> install browsers, run tests, upload report as artifact",
+                "<strong>Visual regression:</strong> expect(page).toHaveScreenshot() — pixel-by-pixel comparison",
+                "<strong>Accessibility testing:</strong> @axe-core/playwright — automated a11y audit in E2E tests",
+                "<strong>Sharding:</strong> split test suite across multiple CI runners for speed"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Playwright Official Docs",
+              "url": "https://playwright.dev/docs/intro",
+              "type": "Docs",
+              "desc": "Best Playwright resource. Includes codegen tool that writes tests by recording your clicks.",
+              "covers": "Covers: every API, locators, assertions, network, CI integration"
+            },
+            {
+              "name": "Playwright YouTube Channel",
+              "url": "https://www.youtube.com/@Playwrightdev",
+              "type": "YouTube",
+              "desc": "Official free tutorial videos from the Playwright team.",
+              "covers": "Covers: getting started, codegen, API testing, CI setup"
+            }
+          ],
+          "note": "ADD Playwright to your skills section immediately across all 3 resumes. You used it in Ghumakkad — it's already experience. This is a 2-minute resume win."
+        }
+      ]
+    },
+    {
+      "id": "dsa",
+      "label": "DSA / LeetCode",
+      "skills": [
+        {
+          "name": "Data Structures & Algorithms",
+          "status": "need",
+          "priority": 1,
+          "hot": true,
+          "why": "DSA is tested in every technical interview. A strong resume gets you the interview — DSA knowledge gets you the offer.",
+          "levels": [
+            {
+              "label": "tier 1 — highest frequency interview topics (do these first)",
+              "topics": [
+                "<strong>Arrays — Two Pointers:</strong> sorted array, palindrome check, 3sum, remove duplicates",
+                "<strong>Arrays — Sliding Window:</strong> max subarray sum, longest substring without repeat, minimum window substring",
+                "<strong>Hash Maps:</strong> two sum, group anagrams, top K frequent, valid anagram, contains duplicate",
+                "<strong>Stacks:</strong> valid parentheses, min stack, daily temperatures, largest rectangle in histogram",
+                "<strong>Binary Search:</strong> classic sorted array search, search in rotated array, find minimum in rotated",
+                "<strong>Linked Lists:</strong> reverse linked list, merge two sorted lists, detect cycle (Floyd's), find middle",
+                "<strong>Trees — DFS:</strong> inorder/preorder/postorder, max depth, same tree, path sum, validate BST",
+                "<strong>Trees — BFS:</strong> level order traversal, minimum depth, connect level pointers"
+              ]
+            },
+            {
+              "label": "tier 2 — appear in medium-hard interviews",
+              "topics": [
+                "<strong>Heap / Priority Queue:</strong> kth largest element, top K frequent, merge K sorted lists, find median from stream",
+                "<strong>Graphs — BFS:</strong> number of islands, rotting oranges, shortest path in binary matrix, clone graph",
+                "<strong>Graphs — DFS:</strong> course schedule (topological sort), number of connected components, Pacific Atlantic water flow",
+                "<strong>Dynamic Programming:</strong> climbing stairs, house robber, coin change, longest common subsequence, 0/1 knapsack, longest increasing subsequence",
+                "<strong>Backtracking:</strong> subsets, permutations, combination sum, letter combinations of phone number"
+              ]
+            },
+            {
+              "label": "tier 3 — advanced (study after tier 1+2)",
+              "topics": [
+                "<strong>Tries:</strong> implement trie, word search II, longest word in dictionary",
+                "<strong>Union-Find (Disjoint Set):</strong> number of connected components, redundant connection",
+                "<strong>Monotonic Stack:</strong> next greater element, trapping rain water",
+                "<strong>Intervals:</strong> merge intervals, insert interval, meeting rooms",
+                "<strong>Bit manipulation:</strong> single number, number of 1 bits, reverse bits, missing number"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "NeetCode.io — NeetCode 150 (free)",
+              "url": "https://neetcode.io/practice",
+              "type": "Practice",
+              "desc": "The best curated free list. 150 problems organized by pattern. Covers 90% of what appears in interviews.",
+              "covers": "Covers: Arrays, Two Pointers, Sliding Window, Stack, Binary Search, Linked List, Trees, Heap, Graphs, DP — all organized"
+            },
+            {
+              "name": "NeetCode YouTube (free video solutions)",
+              "url": "https://www.youtube.com/@NeetCode",
+              "type": "YouTube",
+              "desc": "Free video solution for every NeetCode problem. Clear explanations with drawings.",
+              "covers": "Covers: solution walkthrough + time/space complexity analysis for every problem"
+            },
+            {
+              "name": "LeetCode (free tier)",
+              "url": "https://leetcode.com",
+              "type": "Practice",
+              "desc": "~2000 free problems. Use NeetCode list to choose which ones. Premium not required.",
+              "covers": "Covers: all patterns — use the 'Explore' cards for structured topic-by-topic practice"
+            },
+            {
+              "name": "Visualgo.net",
+              "url": "https://visualgo.net",
+              "type": "Tool",
+              "desc": "Free visual animations of sorting algorithms, graph traversal, data structures.",
+              "covers": "Covers: BFS/DFS, sorting, linked list, binary tree — see the algorithm run step by step"
+            },
+            {
+              "name": "Big-O Cheat Sheet",
+              "url": "https://www.bigocheatsheet.com",
+              "type": "Reference",
+              "desc": "Free quick reference for time and space complexity of common algorithms and data structures.",
+              "covers": "Covers: complexity of every operation on every data structure"
+            },
+            {
+              "name": "Blind 75 (free list)",
+              "url": "https://leetcode.com/discuss/general-discussion/460599/blind-75-leetcode-questions",
+              "type": "Practice",
+              "desc": "Classic curated 75 problems. Subset of NeetCode 150 — start here if time is tight.",
+              "covers": "Covers: the essential 75 problems that appear most in FAANG and startup interviews"
+            }
+          ],
+          "note": "Strategy: 2 problems/day, always pick from NeetCode 150, write the solution then watch the video. Track your weak patterns. Tier 1 alone covers ~70% of interviews you'll face. After 4 weeks of consistent practice, you'll notice problems feeling familiar."
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "label": "System Design",
+      "skills": [
+        {
+          "name": "System Design for Interviews",
+          "status": "need",
+          "priority": 1,
+          "hot": true,
+          "why": "System design rounds are now standard even at mid-level SWE roles. Being able to talk through architecture decisions signals seniority.",
+          "levels": [
+            {
+              "label": "fundamentals — know these cold",
+              "topics": [
+                "<strong>Client-server model:</strong> how a request goes from browser to server and back, every step",
+                "<strong>DNS:</strong> domain → IP resolution, A records, CNAME, TTL",
+                "<strong>HTTP/HTTPS:</strong> request/response, headers, methods, status codes, HTTP/2 vs HTTP/1.1",
+                "<strong>TCP vs UDP:</strong> reliability vs speed, when each is used (TCP=HTTP, UDP=video streaming)",
+                "<strong>IP addressing:</strong> IPv4, CIDR notation, public vs private IPs",
+                "<strong>Load balancers:</strong> L4 vs L7, algorithms (round robin, least connections, IP hash), health checks",
+                "<strong>Horizontal vs vertical scaling:</strong> add more servers vs bigger server, trade-offs",
+                "<strong>CAP theorem:</strong> Consistency, Availability, Partition Tolerance — pick 2 in distributed systems"
+              ]
+            },
+            {
+              "label": "intermediate — design components",
+              "topics": [
+                "<strong>Caching layers:</strong> browser cache, CDN, application cache (Redis), database cache — know when each applies",
+                "<strong>Database scaling:</strong> read replicas for read-heavy loads, sharding for write-heavy, when to denormalize",
+                "<strong>Indexes in system design context:</strong> trade-off: faster reads, slower writes, more storage",
+                "<strong>Message queues:</strong> Kafka/SQS — async decoupling, event-driven, fan-out, dead letter queues",
+                "<strong>Rate limiting:</strong> token bucket algorithm, sliding window — protect your APIs",
+                "<strong>Content Delivery Network (CDN):</strong> static assets at edge, CloudFront, cache-control headers",
+                "<strong>Consistent hashing:</strong> distribute load across nodes without reshuffling everything",
+                "<strong>SQL vs NoSQL decision:</strong> structured/relational = SQL, flexible schema/scale = NoSQL"
+              ]
+            },
+            {
+              "label": "interview problems — practice designing these",
+              "topics": [
+                "<strong>URL shortener:</strong> hashing, redirects, analytics, custom slugs — very common interview",
+                "<strong>Rate limiter:</strong> token bucket in Redis, per-user vs global limits",
+                "<strong>Notification system:</strong> push, email, SMS — fan-out, delivery guarantees, deduplication",
+                "<strong>Job application tracker (ApplyVibe):</strong> YOU KNOW THIS — scale to 1M users: read replicas, Redis cache, CDN, queue for AI processing",
+                "<strong>Chat application:</strong> WebSockets, message ordering, read receipts, push notifications",
+                "<strong>File storage service (like S3):</strong> chunked upload, deduplication, CDN distribution"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "System Design Primer (GitHub — free)",
+              "url": "https://github.com/donnemartin/system-design-primer",
+              "type": "Reference",
+              "desc": "Best free system design resource. 255k+ GitHub stars. Covers every fundamental.",
+              "covers": "Covers: every component (load balancer, cache, DB, message queue) with diagrams and explanations"
+            },
+            {
+              "name": "ByteByteGo Blog (free tier)",
+              "url": "https://blog.bytebytego.com",
+              "type": "Blog",
+              "desc": "Alex Xu's system design newsletter. Many articles free. Visual explanations.",
+              "covers": "Covers: rate limiting, URL shortener, notification system, consistent hashing — all with clear diagrams"
+            },
+            {
+              "name": "Gaurav Sen System Design (YouTube)",
+              "url": "https://www.youtube.com/@gkcs",
+              "type": "YouTube",
+              "desc": "Free system design deep dives. Excellent for building intuition.",
+              "covers": "Covers: Whatsapp design, Netflix design, consistent hashing, CAP theorem"
+            },
+            {
+              "name": "Hussein Nasser (YouTube)",
+              "url": "https://www.youtube.com/@hnasr",
+              "type": "YouTube",
+              "desc": "Backend engineering fundamentals that underpin all system design.",
+              "covers": "Covers: TCP/IP, HTTP internals, databases, connection pooling, proxies"
+            },
+            {
+              "name": "hello-interview.com System Design (free)",
+              "url": "https://www.hello-interview.com/learn/system-design/entry-level/introduction",
+              "type": "Course",
+              "desc": "Free structured system design guide aimed at SWE interviews specifically.",
+              "covers": "Covers: interview framework, common system designs, how to structure your answer"
+            },
+            {
+              "name": "Excalidraw (free diagramming tool)",
+              "url": "https://excalidraw.com",
+              "type": "Tool",
+              "desc": "Free, browser-based whiteboard for drawing system diagrams. Use this to practice.",
+              "covers": "Practice drawing: load balancer → app servers → DB → cache → CDN architectures"
+            }
+          ],
+          "note": "Interview framework: (1) clarify requirements (2) estimate scale (3) high-level design (4) deep dive components (5) identify bottlenecks. Practicing the framework matters as much as knowing the concepts."
+        }
+      ]
+    },
+    {
+      "id": "certs",
+      "label": "Certifications",
+      "skills": [
+        {
+          "name": "AWS Cloud Practitioner (CLF-C02)",
+          "status": "cert",
+          "priority": 1,
+          "hot": true,
+          "why": "Most impactful cert for your profile. Shows AWS commitment beyond just deploying a project. Appears on many JDs as 'nice to have' or required.",
+          "levels": [
+            {
+              "label": "exam domains — 4 areas to study",
+              "topics": [
+                "<strong>Domain 1 — Cloud Concepts (24%):</strong> what is cloud, benefits of AWS, IaaS/PaaS/SaaS, total cost of ownership, cloud economics",
+                "<strong>Domain 2 — Security (30%):</strong> shared responsibility model, IAM, MFA, encryption, compliance (HIPAA, GDPR), Shield, WAF, Inspector",
+                "<strong>Domain 3 — Technology (34%):</strong> compute (EC2, Lambda, ECS), storage (S3, EBS, EFS, Glacier), database (RDS, DynamoDB, ElastiCache), networking (VPC, CloudFront, Route53), developer tools (CodePipeline, CloudFormation)",
+                "<strong>Domain 4 — Billing (12%):</strong> pricing models, Free Tier, cost explorer, budgets, support plans, organizations"
+              ]
+            },
+            {
+              "label": "study strategy",
+              "topics": [
+                "<strong>Week 1:</strong> Watch freeCodeCamp YouTube course (14 hours — do 2hrs/day)",
+                "<strong>Week 2:</strong> AWS Skill Builder official free modules, take notes",
+                "<strong>Week 3:</strong> Practice exams — Examtopics.com (free), target 80%+ score",
+                "<strong>Week 4:</strong> Review weak areas, final practice, schedule and take exam",
+                "<strong>Question format:</strong> multiple choice and multiple response — eliminate wrong answers first",
+                "<strong>No coding:</strong> this is conceptual — you're tested on when to use which service"
+              ]
+            },
+            {
+              "label": "services you must know for the exam",
+              "topics": [
+                "<strong>Compute:</strong> EC2 (virtual servers), Lambda (serverless), ECS (containers), Elastic Beanstalk (PaaS)",
+                "<strong>Storage:</strong> S3 (object), EBS (block, attached to EC2), EFS (shared file), Glacier (archive)",
+                "<strong>Database:</strong> RDS (managed relational), DynamoDB (NoSQL), ElastiCache (Redis/Memcached), Redshift (data warehouse)",
+                "<strong>Networking:</strong> VPC, Subnets, Security Groups, NACLs, Route53 (DNS), CloudFront (CDN), Direct Connect",
+                "<strong>Security:</strong> IAM (identity), KMS (key management), Secrets Manager, Shield (DDoS), WAF",
+                "<strong>Management:</strong> CloudWatch (monitoring), CloudTrail (audit), CloudFormation (IaC), Trusted Advisor"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "freeCodeCamp AWS Practitioner Full Course (YouTube)",
+              "url": "https://www.youtube.com/watch?v=NhDYbskXRgc",
+              "type": "YouTube",
+              "desc": "Free 14-hour comprehensive video course. All you need for the exam.",
+              "covers": "Covers: every exam domain, all AWS services tested — by exam topic"
+            },
+            {
+              "name": "AWS Cloud Practitioner Essentials (Skill Builder)",
+              "url": "https://explore.skillbuilder.aws/learn/course/external/view/elearning/134/aws-cloud-practitioner-essentials",
+              "type": "Course",
+              "desc": "Official free AWS course on Skill Builder. Structured modules.",
+              "covers": "Covers: official AWS training content aligned directly to exam objectives"
+            },
+            {
+              "name": "Examtopics CLF-C02 Practice Questions (free)",
+              "url": "https://www.examtopics.com/exams/amazon/clf-c02/",
+              "type": "Practice",
+              "desc": "Free practice exam questions with community explanations.",
+              "covers": "Covers: real exam-style questions, see rationale for each answer"
+            },
+            {
+              "name": "AWS Whitepapers (free)",
+              "url": "https://aws.amazon.com/whitepapers/",
+              "type": "Reference",
+              "desc": "Official AWS whitepapers — Well-Architected Framework and Overview of AWS are exam-relevant.",
+              "covers": "Covers: architectural best practices, service comparisons"
+            }
+          ],
+          "cert": {
+            "name": "Cost: $100 | Study time: 3-4 weeks | Pass score: 700/1000 | Validity: 3 years",
+            "desc": "Book the exam at Pearson VUE testing center or online proctored. Study until you score 80%+ on practice tests consistently. This is the one certification that most frequently appears in recruiter conversations and job descriptions."
+          }
+        },
+        {
+          "name": "Redis Certified Developer",
+          "status": "cert",
+          "priority": 2,
+          "why": "Completely free — courses and exam. Quick win that adds backend credibility.",
+          "levels": [
+            {
+              "label": "courses to take on Redis University (all free)",
+              "topics": [
+                "<strong>RU101 — Introduction to Redis Data Structures:</strong> strings, lists, hashes, sets, sorted sets — with hands-on labs",
+                "<strong>RU102JS — Redis for JavaScript developers:</strong> use node-redis and ioredis — most relevant for you",
+                "<strong>RU102 — Redis Streams:</strong> persistent message streaming — XADD, XREAD, consumer groups",
+                "<strong>RU203 — Querying, Indexing, Full-Text Search:</strong> RediSearch module"
+              ]
+            },
+            {
+              "label": "certification exam",
+              "topics": [
+                "<strong>Format:</strong> 60 questions, 90 minutes, online proctored or at home",
+                "<strong>Topics:</strong> data structures, streams, persistence, replication, clustering, security",
+                "<strong>Passing score:</strong> 67%",
+                "<strong>Cost:</strong> FREE — unlimited attempts",
+                "<strong>Timeline:</strong> 1-2 weeks after finishing RU101 and RU102JS"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "Redis University (all courses + exam free)",
+              "url": "https://university.redis.com",
+              "type": "Course",
+              "desc": "Enroll in RU101 first. All courses have interactive exercises and real Redis clusters to use.",
+              "covers": "Covers: RU101 (data types), RU102JS (Node.js), RU102 (Streams), RU203 (Search) — all free"
+            }
+          ],
+          "cert": {
+            "name": "Cost: FREE (courses + exam) | Timeline: 1-2 weeks | Priority: medium",
+            "desc": "Do this immediately after adding Redis to a project. It's free, quick, and adds genuine credibility to your backend resume. One of the only truly free industry certifications."
+          }
+        },
+        {
+          "name": "HashiCorp Terraform Associate (003)",
+          "status": "cert",
+          "priority": 3,
+          "why": "Shows IaC knowledge. Good for backend and DevOps-adjacent roles.",
+          "levels": [
+            {
+              "label": "exam objectives — 9 areas",
+              "topics": [
+                "<strong>Understand IaC concepts:</strong> benefits, use cases, Terraform's place in the IaC landscape",
+                "<strong>Terraform purpose:</strong> what problems it solves, key features",
+                "<strong>Terraform basics:</strong> providers, resources, state, variables, outputs, modules",
+                "<strong>Use the Terraform CLI:</strong> init, plan, apply, destroy, workspace, output, state, fmt, validate",
+                "<strong>Interact with Terraform modules:</strong> use public modules, create modules, input/output",
+                "<strong>Navigate the core workflow:</strong> write → plan → apply cycle",
+                "<strong>Implement and maintain state:</strong> remote state, state locking, state commands",
+                "<strong>Read, generate, and modify configuration:</strong> data sources, functions, count/for_each",
+                "<strong>Understand Terraform Cloud:</strong> workspaces, variable sets, remote runs"
+              ]
+            },
+            {
+              "label": "study strategy",
+              "topics": [
+                "<strong>Week 1:</strong> HashiCorp Learn AWS path — do all tutorials hands-on with real AWS",
+                "<strong>Week 2:</strong> Write Terraform for your own AWS project (EC2 + RDS + S3)",
+                "<strong>Week 3:</strong> Take practice exams, review weak areas",
+                "<strong>Cost:</strong> $70, Pearson VUE"
+              ]
+            }
+          ],
+          "resources": [
+            {
+              "name": "HashiCorp Learn — Terraform AWS Path (free)",
+              "url": "https://developer.hashicorp.com/terraform/tutorials/aws-get-started",
+              "type": "Course",
+              "desc": "Official free tutorials that directly cover exam content.",
+              "covers": "Covers: all 9 exam objectives with hands-on labs"
+            },
+            {
+              "name": "freeCodeCamp Terraform Course (YouTube)",
+              "url": "https://www.youtube.com/watch?v=SLB_c_ayRMo",
+              "type": "YouTube",
+              "desc": "Free 2.5-hour Terraform + AWS course.",
+              "covers": "Covers: HCL syntax, providers, state, modules — beginner to certification ready"
+            }
+          ],
+          "cert": {
+            "name": "Cost: $70 | Study time: 2-3 weeks | Validity: 2 years | Priority: optional",
+            "desc": "Take after AWS cert and Terraform practice on real projects. Lower priority than AWS cert and Redis cert but good for roles that list Terraform in the JD."
+          }
+        }
+      ]
+    }
+  ]
+}
