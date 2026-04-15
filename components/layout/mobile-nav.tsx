@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const links = [
+  { href: "/", label: "Home" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/skills", label: "Skills" },
   { href: "/practice", label: "Practice" },
@@ -41,7 +42,8 @@ export function MobileNav() {
           </SheetHeader>
           <nav className="mt-6 flex flex-col gap-1">
             {links.map((l) => {
-              const active = pathname === l.href || pathname.startsWith(`${l.href}/`);
+              const active =
+                l.href === "/" ? pathname === "/" : pathname === l.href || pathname.startsWith(`${l.href}/`);
               return (
                 <Link
                   key={l.href}

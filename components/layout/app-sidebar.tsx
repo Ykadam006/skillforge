@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   FolderKanban,
+  Home,
   LayoutDashboard,
   Settings,
   Target,
@@ -23,6 +24,7 @@ import { Progress } from "@/components/ui/progress";
 const SIDEBAR_COLLAPSE_KEY = "sf-sidebar-collapsed";
 
 const nav = [
+  { href: "/", label: "Home", icon: Home },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/skills", label: "Skills", icon: BookOpen },
   { href: "/practice", label: "Practice", icon: Target },
@@ -67,7 +69,7 @@ export function AppSidebar() {
     >
       <div className="flex h-[72px] shrink-0 items-center gap-2 border-b border-sidebar-border px-3">
         <Link
-          href="/dashboard"
+          href="/"
           className={cn(
             "flex min-w-0 items-center gap-2.5 rounded-2xl border border-sidebar-border bg-card py-2 pl-2.5 pr-3 font-semibold tracking-tight text-foreground shadow-sm transition-colors hover:bg-muted/30",
             collapsed ? "size-10 shrink-0 justify-center p-0" : "flex-1",
@@ -92,8 +94,8 @@ export function AppSidebar() {
       <nav className="flex flex-1 flex-col gap-1 p-3">
         {nav.map((item) => {
           const active =
-            item.href === "/dashboard"
-              ? pathname === "/dashboard"
+            item.href === "/"
+              ? pathname === "/"
               : pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
           return (

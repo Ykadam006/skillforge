@@ -244,6 +244,12 @@ export const useSkillforgeStore = create<SkillforgeState>()(
 
       touchSkillOpened: (key, skillName) => {
         get().ensureSkill(key, skillName);
+        const current = get().skillProgress[key];
+        const prev = current?.lastOpenedAt;
+        if (prev) {
+          const elapsed = Date.now() - new Date(prev).getTime();
+          if (elapsed < 5000) return;
+        }
         const lastOpenedAt = new Date().toISOString();
         set((state) => ({
           skillProgress: {

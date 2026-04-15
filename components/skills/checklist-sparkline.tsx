@@ -1,13 +1,16 @@
 "use client";
 
+import { useMemo } from "react";
 import { Line, LineChart, ResponsiveContainer, Tooltip, YAxis } from "recharts";
 import type { ChecklistHistoryPoint } from "@/types/progress";
 
+const PLACEHOLDER: { i: number; pct: number; date: string }[] = [{ i: 0, pct: 0, date: "" }];
+
 export function ChecklistSparkline({ history }: { history: ChecklistHistoryPoint[] | undefined }) {
-  const data =
-    history && history.length > 0
-      ? history.map((h, i) => ({ i, pct: h.pct, date: h.date }))
-      : [{ i: 0, pct: 0, date: "" }];
+  const data = useMemo(() => {
+    if (history?.length) return history.map((h, i) => ({ i, pct: h.pct, date: h.date }));
+    return PLACEHOLDER;
+  }, [history]);
 
   return (
     <div className="w-full">

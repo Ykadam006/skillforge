@@ -4,12 +4,12 @@ import { useMemo } from "react";
 import { Line, LineChart, ResponsiveContainer, Tooltip, YAxis } from "recharts";
 import type { SessionHistoryPoint } from "@/types/progress";
 
+const PLACEHOLDER: { i: number; minutes: number; date: string }[] = [{ i: 0, minutes: 0, date: "" }];
+
 export function SessionSparkline({ history }: { history: SessionHistoryPoint[] | undefined }) {
   const data = useMemo(() => {
-    if (history && history.length > 0) {
-      return history.map((h, i) => ({ i, minutes: h.minutes, date: h.date }));
-    }
-    return [{ i: 0, minutes: 0, date: "" }];
+    if (history?.length) return history.map((h, i) => ({ i, minutes: h.minutes, date: h.date }));
+    return PLACEHOLDER;
   }, [history]);
 
   const maxM = useMemo(() => Math.max(30, ...data.map((d) => d.minutes)), [data]);
