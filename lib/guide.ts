@@ -1,8 +1,10 @@
 import type { GuideSkill, MasterLearningGuide } from "@/types/guide";
-import { cats } from "@/data/cats";
+import skillsStack from "@/data/skills.json";
+import { skillsStackToMasterGuide } from "@/lib/skills-stack-to-guide";
 import { skillKey, skillSlug, slugify } from "@/lib/slug";
+import type { SkillsStackFile } from "@/types/skills-stack";
 
-const guide: MasterLearningGuide = { cats };
+const guide: MasterLearningGuide = skillsStackToMasterGuide(skillsStack as SkillsStackFile);
 
 export function getGuide() {
   return guide;

@@ -1,0 +1,19 @@
+{
+  "summary": {
+    "totalApplied": 47,
+    "phoneScreens": 6,
+    "technicals": 2,
+    "onsites": 0,
+    "offers": 0,
+    "rejections": 18,
+    "responseRate": "12.7%",
+    "lastUpdated": "2026-04-18"
+  },
+  "targetCompanies": [
+    { "name": "Spotify", "status": "applied", "role": "Backend Engineer" },
+    { "name": "Benjamin Moore", "status": "applied", "role": "Full-Stack Engineer" },
+    { "name": "Cloud Resources LLC", "status": "phone-screen", "role": "Java Engineer" },
+    { "name": "Tekshapers", "status": "applied", "role": "Full-Stack Engineer" }
+  ],
+  "showDetails": false
+}

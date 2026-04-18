@@ -1,0 +1,35 @@
+{
+  "name": "Yogesh Kadam",
+  "title": "Full-Stack Software Engineer",
+  "tagline": "Building AI-powered web apps with Next.js, Spring Boot, and AWS",
+  "location": "Chicago, IL",
+  "status": "Open to full-time SWE roles — May/June 2026 start",
+  "email": "your.email@example.com",
+  "social": {
+    "github": "https://github.com/yogeshkadam",
+    "linkedin": "https://linkedin.com/in/yogeshkadam",
+    "portfolio": "https://yk-studio.vercel.app",
+    "twitter": null
+  },
+  "education": [
+    {
+      "school": "Illinois Institute of Technology",
+      "degree": "M.S. Information Technology & Management (MAS)",
+      "location": "Chicago, IL",
+      "startDate": "2024-08",
+      "endDate": "2026-05",
+      "gpa": "4.0",
+      "highlights": [
+        "Teaching Assistant",
+        "Cohort Manager — Elevate Program",
+        "Go-To-Market Associate — Kaplan Institute"
+      ]
+    }
+  ],
+  "targetRoles": [
+    "Full-Stack Software Engineer",
+    "Backend Engineer (Java/Spring Boot)",
+    "Software Engineer (new-grad / early-career)"
+  ],
+  "availability": "Graduating May 2026 — available for immediate start"
+}

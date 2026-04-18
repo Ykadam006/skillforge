@@ -1,0 +1,121 @@
+{
+  "projects": [
+    {
+      "id": "applyvibe",
+      "name": "ApplyVibe",
+      "tagline": "SaaS job application tracker with Kanban pipeline and analytics",
+      "featured": true,
+      "status": "live",
+      "live": "https://inbox2-offer.vercel.app/",
+      "github": "https://github.com/yogeshkadam/applyvibe",
+      "cover": "/images/projects/applyvibe.png",
+      "stack": [
+        "Next.js 16",
+        "TypeScript",
+        "Auth.js v5",
+        "Prisma",
+        "Neon PostgreSQL",
+        "dnd-kit",
+        "Recharts",
+        "Tailwind",
+        "Vercel"
+      ],
+      "highlights": [
+        "8-page SaaS with 11-stage Kanban pipeline",
+        "Drag-and-drop with optimistic updates",
+        "Recharts analytics: apps by stage, response rate, velocity",
+        "Auth.js v5 with credentials + OAuth",
+        "14 bugs identified and resolved during build"
+      ],
+      "skillsUsed": [
+        "typescript",
+        "react",
+        "next-js",
+        "postgresql-deep",
+        "sql",
+        "tailwind-css",
+        "jest-react-testing-library"
+      ],
+      "startDate": "2026-01",
+      "endDate": null
+    },
+    {
+      "id": "dailyhabitz",
+      "name": "DailyHabitz",
+      "tagline": "Full-stack habit tracker with JWT auth and daily streak logic",
+      "featured": true,
+      "status": "live",
+      "live": "https://dailyhabitz-1.onrender.com/",
+      "github": "https://github.com/yogeshkadam/dailyhabitz",
+      "cover": "/images/projects/dailyhabitz.png",
+      "stack": ["Next.js 15", "Node.js", "Express", "MongoDB Atlas", "JWT", "Mongoose", "GitHub Actions"],
+      "highlights": [
+        "Secure JWT auth flow with refresh tokens",
+        "Streak calculation handling time zones correctly",
+        "MongoDB aggregation for weekly/monthly charts",
+        "CI/CD with GitHub Actions to Render"
+      ],
+      "skillsUsed": [
+        "typescript",
+        "react",
+        "next-js",
+        "node-js-express",
+        "mongodb",
+        "github-actions-ci-cd",
+        "tailwind-css"
+      ],
+      "startDate": "2025-10",
+      "endDate": "2025-12"
+    },
+    {
+      "id": "aws-collab-platform",
+      "name": "AWS Collaboration Platform",
+      "tagline": "Team workspace on full AWS stack with Spring Boot backend",
+      "featured": true,
+      "status": "live",
+      "live": "https://dj3eozung04ja.cloudfront.net/",
+      "github": "https://github.com/yogeshkadam/aws-collab",
+      "cover": "/images/projects/aws-collab.png",
+      "stack": [
+        "React",
+        "Spring Boot",
+        "Java 17",
+        "PostgreSQL",
+        "AWS EC2",
+        "AWS RDS",
+        "AWS S3",
+        "AWS Cognito",
+        "CloudFront"
+      ],
+      "highlights": [
+        "Full AWS deployment: EC2 + RDS + S3 + CloudFront + Cognito",
+        "Spring Security with Cognito JWT integration",
+        "S3 presigned URLs for file uploads",
+        "CloudFront CDN for React static hosting"
+      ],
+      "skillsUsed": ["java", "spring-boot", "react", "postgresql-deep", "sql", "aws"],
+      "startDate": "2025-08",
+      "endDate": "2025-10"
+    },
+    {
+      "id": "ghumakkad",
+      "name": "Ghumakkad",
+      "tagline": "Travel companion app with multi-API integration and E2E tested",
+      "featured": false,
+      "status": "live",
+      "live": "https://travelwithghumakkad.netlify.app/",
+      "github": "https://github.com/yogeshkadam/ghumakkad",
+      "cover": "/images/projects/ghumakkad.png",
+      "stack": ["React 18", "Vite", "TypeScript", "Framer Motion", "Playwright", "Netlify"],
+      "highlights": [
+        "Multi-API integration (weather, places, currency)",
+        "Framer Motion page transitions",
+        "Playwright E2E coverage for critical user flows",
+        "Fully responsive, deployed to Netlify"
+      ],
+      "skillsUsed": ["typescript", "react", "playwright", "tailwind-css"],
+      "startDate": "2025-06",
+      "endDate": "2025-08"
+    }
+  ]
+}

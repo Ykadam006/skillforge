@@ -29,8 +29,15 @@ export function StageProgressStrip({
         {levels.map((lv, i) => {
           const threshold = thresholds[i] ?? 100;
           const prev = i > 0 ? thresholds[i - 1]! : 0;
-          const complete = allDone || checklistPct >= threshold - 0.5;
-          const current = !complete && checklistPct >= prev - 0.5 && checklistPct < threshold;
+          const tierPct = typeof lv.progress === "number" ? lv.progress : undefined;
+          const tierComplete = tierPct !== undefined && tierPct >= 95;
+          const tierCurrent =
+            tierPct !== undefined && tierPct > 0 && tierPct < 95 && (i === 0 || (levels[i - 1]?.progress ?? 100) >= 95);
+
+          const complete = allDone || tierComplete || (tierPct === undefined && checklistPct >= threshold - 0.5);
+          const current =
+            !complete &&
+            (tierCurrent || (tierPct === undefined && checklistPct >= prev - 0.5 && checklistPct < threshold));
 
           return (
             <Fragment key={lv.label}>
@@ -38,7 +45,14 @@ export function StageProgressStrip({
                 <div
                   className={cn(
                     "mx-1 mt-4 hidden h-0.5 min-w-[8px] flex-1 sm:block",
-                    checklistPct >= prev ? "bg-success/35" : "bg-border",
+                    (() => {
+                      const prevLv = levels[i - 1];
+                      const prevTier = typeof prevLv?.progress === "number" ? prevLv.progress : undefined;
+                      if (prevTier !== undefined) return prevTier >= 90;
+                      return checklistPct >= prev;
+                    })()
+                      ? "bg-success/35"
+                      : "bg-border",
                   )}
                   aria-hidden
                 />

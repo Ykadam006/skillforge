@@ -5,8 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Award, Camera, Circle, ExternalLink, Package } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
@@ -20,6 +22,7 @@ import { resourceIconForType } from "@/components/skills/resource-type-icon";
 import { SessionSparkline } from "@/components/skills/session-sparkline";
 import { StageProgressStrip } from "@/components/skills/stage-progress-strip";
 import { findCertificationForGuideCert } from "@/lib/cert-match";
+import { getProjectById } from "@/lib/data";
 import { findSkillBySlug } from "@/lib/guide";
 import { useSkillforgeStore } from "@/stores/skillforge-store";
 import type { GuideResource, LearningStatus } from "@/types/guide";
@@ -84,6 +87,56 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
     () => (row ? projects.filter((proj) => proj.skillKeys.includes(row.key)) : EMPTY_PROJECTS),
     [projects, row],
   );
+
+  const showcaseProjects = useMemo(() => {
+    if (!row?.skill.projectIds?.length) return [];
+    return row.skill.projectIds.map((id) => getProjectById(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
+  }, [row]);
+
+  const tierProgressValues = useMemo(
+    () => (row?.skill.levels ?? []).map((l) => l.progress).filter((n): n is number => typeof n === "number"),
+    [row],
+  );
+
+  const overallMasteryFromJson = useMemo(() => {
+    if (!tierProgressValues.length) return null;
+    return Math.round(tierProgressValues.reduce((a, b) => a + b, 0) / tierProgressValues.length);
+  }, [tierProgressValues]);
+
+  const resourceStats = useMemo(() => {
+    const list = row?.skill.resources ?? [];
+    let completed = 0;
+    let inProgress = 0;
+    for (const r of list) {
+      const s = r.resourceStatus ?? "";
+      if (s === "completed" || s === "done") completed += 1;
+      else if (s === "in-progress") inProgress += 1;
+    }
+    const total = list.length;
+    const barPct =
+      total === 0 ? 0 : Math.min(100, Math.round(((completed + inProgress * 0.55) / total) * 100));
+    return { completed, inProgress, total, barPct };
+  }, [row]);
+
+  const combinedProjects = useMemo(() => {
+    const seen = new Set<string>();
+    const out: Array<
+      | { kind: "showcase"; showcase: NonNullable<ReturnType<typeof getProjectById>> }
+      | { kind: "store"; project: Project }
+    > = [];
+    for (const sc of showcaseProjects) {
+      if (seen.has(sc.id)) continue;
+      seen.add(sc.id);
+      out.push({ kind: "showcase", showcase: sc });
+    }
+    for (const proj of relatedProjects) {
+      if (seen.has(proj.id)) continue;
+      seen.add(proj.id);
+      out.push({ kind: "store", project: proj });
+    }
+    return out;
+  }, [showcaseProjects, relatedProjects]);
+
   const matchedCert = useMemo(
     () => (row?.skill.cert ? findCertificationForGuideCert(certifications, row.skill.cert) : undefined),
     [certifications, row],
@@ -109,6 +162,12 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
   const tasks = p?.tasks ?? [];
   const doneTasks = tasks.filter((t) => t.completed).length;
   const checklistPct = tasks.length ? Math.round((doneTasks / tasks.length) * 100) : 0;
+  const overallMastery = overallMasteryFromJson ?? checklistPct;
+  const primaryShowcase = showcaseProjects[0];
+  const primaryStore = relatedProjects[0];
+  const primaryLabel = primaryStore?.title ?? primaryShowcase?.name;
+  const primaryBody = primaryStore?.notes ?? primaryShowcase?.tagline;
+  const primaryStatus = primaryStore?.status ?? primaryShowcase?.status;
 
   return (
     <div className="space-y-8">
@@ -120,9 +179,61 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
         Back to library
       </Link>
 
+      <nav aria-label="Breadcrumb" className="sf-helper -mt-4 text-[13px] text-muted-foreground">
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+          <li>
+            <Link href="/skills" className="hover:text-foreground">
+              skills
+            </Link>
+          </li>
+          <li aria-hidden className="text-muted-foreground/60">
+            /
+          </li>
+          <li className="text-muted-foreground">{row.categoryId}</li>
+          <li aria-hidden className="text-muted-foreground/60">
+            /
+          </li>
+          <li className="font-medium text-foreground">{slug}</li>
+        </ol>
+      </nav>
+
       <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
         {/* Main column — learning path */}
         <div className="space-y-6 lg:col-span-8">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Card className="border-border/80 shadow-sm">
+              <CardHeader className="pb-2">
+                <CardDescription>Overall mastery</CardDescription>
+                <CardTitle className="sf-card-title text-3xl tabular-nums">{overallMastery}%</CardTitle>
+                <p className="sf-helper text-muted-foreground">
+                  {tierProgressValues.length > 0
+                    ? `Average across ${tierProgressValues.length} tiers from your guide JSON.`
+                    : "From your on-page checklist until tier scores exist in data."}
+                </p>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <Progress value={overallMastery} className="h-2" />
+              </CardContent>
+            </Card>
+            <Card className="border-border/80 shadow-sm">
+              <CardHeader className="pb-2">
+                <CardDescription>Resources</CardDescription>
+                <CardTitle className="sf-card-title text-lg leading-snug">
+                  {resourceStats.total === 0
+                    ? "No resources listed"
+                    : `${resourceStats.completed} of ${resourceStats.total} completed`}
+                  {resourceStats.total > 0 && resourceStats.inProgress > 0
+                    ? ` · ${resourceStats.inProgress} in progress`
+                    : null}
+                </CardTitle>
+                <p className="sf-helper text-muted-foreground">Static status from data/skills.json.</p>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <Progress value={resourceStats.barPct} className="h-2" />
+              </CardContent>
+            </Card>
+          </div>
+
           <Card className="border-border/80 shadow-sm">
             <CardHeader className="space-y-4">
               <div className="flex flex-wrap items-center gap-2">
@@ -198,9 +309,28 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                                 <div className="min-w-0 flex-1 space-y-1">
                                   <div className="flex flex-wrap items-start justify-between gap-2">
                                     <CardTitle className="text-base font-semibold leading-snug">{r.name}</CardTitle>
-                                    <span className="rounded-lg border border-border bg-muted/30 px-2 py-0.5 text-[12px] font-medium text-muted-foreground">
-                                      {r.type}
-                                    </span>
+                                    <div className="flex flex-wrap justify-end gap-1.5">
+                                      <span className="rounded-lg border border-border bg-muted/30 px-2 py-0.5 text-[12px] font-medium text-muted-foreground">
+                                        {r.type}
+                                      </span>
+                                      {r.cost ? (
+                                        <span className="rounded-lg border border-border bg-muted/20 px-2 py-0.5 text-[12px] text-muted-foreground">
+                                          {r.cost}
+                                        </span>
+                                      ) : null}
+                                      <span
+                                        className={cn(
+                                          "rounded-full px-2 py-0.5 text-[11px] font-semibold tracking-wide",
+                                          (r.resourceStatus ?? "") === "completed" || (r.resourceStatus ?? "") === "done"
+                                            ? "bg-success-light text-success-foreground"
+                                            : (r.resourceStatus ?? "") === "in-progress"
+                                              ? "bg-primary-light text-primary"
+                                              : "bg-muted text-muted-foreground",
+                                        )}
+                                      >
+                                        {r.covers}
+                                      </span>
+                                    </div>
                                   </div>
                                   <p className="text-[13px] font-medium leading-snug text-foreground">{r.desc}</p>
                                   <CardDescription className="text-[13px] leading-relaxed text-muted-foreground">
@@ -411,17 +541,56 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                   <li>Optional: cert score or mock exam screenshot</li>
                 </ul>
                 <div className="flex flex-col gap-2">
-                  {relatedProjects.length > 0 ? (
-                    relatedProjects.map((proj) => (
-                      <Link
-                        key={proj.id}
-                        href={`/projects#project-${proj.id}`}
-                        className={cn(buttonVariants({ variant: "default", size: "sm" }), "h-auto min-h-9 justify-start rounded-xl py-2 text-left")}
-                      >
-                        <Package className="mr-2 size-3.5 shrink-0" aria-hidden />
-                        <span className="line-clamp-2">{proj.title}</span>
-                      </Link>
-                    ))
+                  {combinedProjects.length > 0 ? (
+                    combinedProjects.map((entry) =>
+                      entry.kind === "store" ? (
+                        <Link
+                          key={entry.project.id}
+                          href={`/projects#project-${entry.project.id}`}
+                          className={cn(
+                            buttonVariants({ variant: "default", size: "sm" }),
+                            "h-auto min-h-9 justify-start rounded-xl py-2 text-left",
+                          )}
+                        >
+                          <Package className="mr-2 size-3.5 shrink-0" aria-hidden />
+                          <span className="line-clamp-2">{entry.project.title}</span>
+                        </Link>
+                      ) : (
+                        <div key={entry.showcase.id} className="flex flex-col gap-2 rounded-xl border border-border/60 bg-muted/10 p-3">
+                          <p className="text-sm font-semibold text-foreground">{entry.showcase.name}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {entry.showcase.live ? (
+                              <a
+                                href={entry.showcase.live}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={cn(buttonVariants({ variant: "default", size: "sm" }), "h-9 gap-1 rounded-xl")}
+                              >
+                                Live demo
+                                <ExternalLink className="size-3.5" aria-hidden />
+                              </a>
+                            ) : null}
+                            {entry.showcase.github ? (
+                              <a
+                                href={entry.showcase.github}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 gap-1 rounded-xl")}
+                              >
+                                GitHub
+                                <ExternalLink className="size-3.5" aria-hidden />
+                              </a>
+                            ) : null}
+                            <Link
+                              href="/projects"
+                              className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}
+                            >
+                              Mirror in Projects
+                            </Link>
+                          </div>
+                        </div>
+                      ),
+                    )
                   ) : (
                     <Link href="/projects" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}>
                       Create or link a project
@@ -461,20 +630,36 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                 <CardDescription>Build to prove the skill.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3 text-[14px]">
-                {relatedProjects[0] ? (
+                {primaryLabel ? (
                   <>
-                    <p className="font-semibold text-foreground">{relatedProjects[0].title}</p>
-                    <p className="sf-helper capitalize text-muted-foreground">Status: {relatedProjects[0].status}</p>
-                    <p className="text-muted-foreground">{relatedProjects[0].notes}</p>
-                    {relatedProjects.length > 1 ? (
-                      <p className="text-xs text-muted-foreground">+{relatedProjects.length - 1} more linked in Projects.</p>
+                    <p className="font-semibold text-foreground">{primaryLabel}</p>
+                    <p className="sf-helper capitalize text-muted-foreground">Status: {primaryStatus}</p>
+                    {primaryBody ? <p className="text-muted-foreground">{primaryBody}</p> : null}
+                    {combinedProjects.length > 1 ? (
+                      <p className="text-xs text-muted-foreground">+{combinedProjects.length - 1} more linked below.</p>
                     ) : null}
-                    <Link
-                      href={`/projects#project-${relatedProjects[0].id}`}
-                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}
-                    >
-                      Jump to project
-                    </Link>
+                    {primaryStore ? (
+                      <Link
+                        href={`/projects#project-${primaryStore.id}`}
+                        className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}
+                      >
+                        Jump to project
+                      </Link>
+                    ) : primaryShowcase?.live ? (
+                      <a
+                        href={primaryShowcase.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 gap-1 rounded-xl")}
+                      >
+                        Open live demo
+                        <ExternalLink className="size-3.5" aria-hidden />
+                      </a>
+                    ) : (
+                      <Link href="/projects" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}>
+                        Link a project
+                      </Link>
+                    )}
                   </>
                 ) : (
                   <>
@@ -495,12 +680,25 @@ export function SkillLearningPanel({ slug }: { slug: string }) {
                 <CardContent className="space-y-2 text-[14px]">
                   <p className="font-semibold">{row.skill.cert.name}</p>
                   <p className="text-muted-foreground">{row.skill.cert.desc}</p>
-                  <Link
-                    href={matchedCert ? `/certifications#cert-${matchedCert.id}` : "/certifications"}
-                    className={cn(buttonVariants({ variant: "outline", size: "sm" }), "mt-2 inline-flex h-9 rounded-xl")}
-                  >
-                    Track readiness
-                  </Link>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {row.skill.cert.url ? (
+                      <a
+                        href={row.skill.cert.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 gap-1 rounded-xl")}
+                      >
+                        Official info
+                        <ExternalLink className="size-3.5" aria-hidden />
+                      </a>
+                    ) : null}
+                    <Link
+                      href={matchedCert ? `/certifications#cert-${matchedCert.id}` : "/certifications"}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "h-9 rounded-xl")}
+                    >
+                      Track readiness
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             ) : null}

@@ -1,0 +1,104 @@
+{
+  "certifications": [
+    {
+      "id": "aws-cloud-practitioner",
+      "name": "AWS Cloud Practitioner",
+      "code": "CLF-C02",
+      "provider": "Amazon Web Services",
+      "priority": 1,
+      "status": "in-progress",
+      "cost": "$100",
+      "timelineWeeks": 4,
+      "validityYears": 3,
+      "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+      "examFormat": "65 questions, 90 minutes, multiple choice + multiple response",
+      "passScore": 700,
+      "maxScore": 1000,
+      "targetDate": "2026-05-15",
+      "domains": [
+        { "name": "Cloud Concepts", "weight": "24%", "progress": 40 },
+        { "name": "Security & Compliance", "weight": "30%", "progress": 25 },
+        { "name": "Technology", "weight": "34%", "progress": 30 },
+        { "name": "Billing & Pricing", "weight": "12%", "progress": 10 }
+      ],
+      "resources": [
+        {
+          "name": "freeCodeCamp AWS 14hr Course",
+          "url": "https://www.youtube.com/watch?v=NhDYbskXRgc",
+          "status": "not-started"
+        },
+        {
+          "name": "AWS Skill Builder Essentials",
+          "url": "https://explore.skillbuilder.aws/learn/course/external/view/elearning/134/aws-cloud-practitioner-essentials",
+          "status": "not-started"
+        },
+        {
+          "name": "Examtopics Practice Questions",
+          "url": "https://www.examtopics.com/exams/amazon/clf-c02/",
+          "status": "not-started"
+        }
+      ]
+    },
+    {
+      "id": "redis-certified-developer",
+      "name": "Redis Certified Developer",
+      "code": "RU101",
+      "provider": "Redis University",
+      "priority": 2,
+      "status": "not-started",
+      "cost": "free",
+      "timelineWeeks": 2,
+      "validityYears": null,
+      "url": "https://university.redis.com",
+      "examFormat": "60 questions, 90 minutes, online proctored",
+      "passScore": 67,
+      "maxScore": 100,
+      "targetDate": "2026-04-30",
+      "domains": [
+        { "name": "Data Structures (RU101)", "weight": "40%", "progress": 0 },
+        { "name": "Node.js Integration (RU102JS)", "weight": "30%", "progress": 0 },
+        { "name": "Streams (RU102)", "weight": "20%", "progress": 0 },
+        { "name": "Security & Clustering", "weight": "10%", "progress": 0 }
+      ],
+      "resources": [
+        { "name": "Redis University (all courses free)", "url": "https://university.redis.com", "status": "not-started" }
+      ]
+    },
+    {
+      "id": "terraform-associate",
+      "name": "HashiCorp Terraform Associate",
+      "code": "003",
+      "provider": "HashiCorp",
+      "priority": 3,
+      "status": "not-started",
+      "cost": "$70",
+      "timelineWeeks": 3,
+      "validityYears": 2,
+      "url": "https://developer.hashicorp.com/certifications/infrastructure-automation",
+      "examFormat": "57 questions, 60 minutes",
+      "passScore": 70,
+      "maxScore": 100,
+      "targetDate": null,
+      "domains": [
+        { "name": "IaC Concepts", "weight": "15%", "progress": 0 },
+        { "name": "Terraform Workflow", "weight": "20%", "progress": 0 },
+        { "name": "CLI Commands", "weight": "15%", "progress": 0 },
+        { "name": "Modules", "weight": "15%", "progress": 0 },
+        { "name": "State", "weight": "20%", "progress": 0 },
+        { "name": "Configuration", "weight": "15%", "progress": 0 }
+      ],
+      "resources": [
+        {
+          "name": "HashiCorp Learn Terraform",
+          "url": "https://developer.hashicorp.com/terraform/tutorials",
+          "status": "not-started"
+        },
+        {
+          "name": "freeCodeCamp Terraform Course",
+          "url": "https://www.youtube.com/watch?v=SLB_c_ayRMo",
+          "status": "not-started"
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import {
   Award,
   BarChart3,
   BookOpen,
+  Calendar,
   ChevronLeft,
   ChevronRight,
   FolderKanban,
@@ -26,6 +27,7 @@ const SIDEBAR_COLLAPSE_KEY = "sf-sidebar-collapsed";
 const nav = [
   { href: "/", label: "Home", icon: Home },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/now", label: "Now", icon: Calendar },
   { href: "/skills", label: "Skills", icon: BookOpen },
   { href: "/practice", label: "Practice", icon: Target },
   { href: "/projects", label: "Projects", icon: FolderKanban },

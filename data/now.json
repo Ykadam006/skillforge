@@ -1,0 +1,24 @@
+{
+  "updated": "2026-04-18",
+  "currentWeek": "Apr 14-20, 2026 — Week 3 of 8",
+  "focus": "Ship AI feature in ApplyVibe, add Redis rate limiting, continue NeetCode",
+  "building": [
+    { "project": "applyvibe", "task": "JD analyzer using Claude API — scores resume fit" },
+    { "project": "applyvibe", "task": "Upstash Redis rate limiting on API routes" }
+  ],
+  "learning": [
+    { "skill": "dsa", "task": "NeetCode 150: binary search + linked lists, 2/day" },
+    { "skill": "docker", "task": "Dockerize ApplyVibe with multi-stage build" },
+    { "skill": "system-design-for-interviews", "task": "30 min/day: URL shortener + rate limiter" }
+  ],
+  "applying": {
+    "appsThisWeek": 14,
+    "outreachThisWeek": 5,
+    "phoneScreens": 2
+  },
+  "reading": [
+    { "title": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer" },
+    { "title": "Josh Comeau — useEffect Complete Guide", "url": "https://www.joshwcomeau.com/react/useeffect-derived-state/" }
+  ],
+  "highlight": "Closed out 2 apps into phone screens. First round of AI feature is deployed to staging."
+}
